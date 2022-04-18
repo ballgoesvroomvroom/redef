@@ -1,0 +1,166 @@
+#big-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	overflow-y: auto;
+	background: var(--defaultbackground);
+}
+
+#actualboard {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	width: calc(100% - 80px);
+	height: auto;
+	min-height: 700px;
+	margin: 20px 0;
+	background-color: var(--secondary-color-with-trans);
+	box-shadow: 3px 3px 5px 4px #1a1a1a;
+	border-radius: 5px;
+	padding: 20px;
+}
+
+#actualboard-header {
+	font-size: 2em;
+}
+
+#board-contents {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+	width: 100%;
+	padding-top: 30px;
+	flex-grow: 1;
+	overflow-y: auto;
+}
+
+.board-selection-collapse {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	width: 100%;
+	height: 70px;
+	min-height: 70px;
+	padding: 5px;
+	border-radius: 5px;
+	margin-bottom: 10px;
+	font-size: 2em;
+	transition: background-color 0.25s ease-in-out, font-size 0.25s ease-in-out;
+}
+
+.board-selection-collapse:hover {
+	font-size: 1.9em;
+	background-color: var(--accent-color);
+}
+
+.board-contents-frame {
+	width: 100%;
+	overflow-y: auto;
+}
+
+.board-menu-button {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100px;
+	min-height: 100px;
+	padding: 5px;
+	border-radius: 5px;
+	margin: 10px 0;
+	font-size: 2em;
+	transition: background-color 0.15s ease-in, font-size 0.25s ease-in-out;
+}
+
+.board-menu-button:hover {
+	font-size: 1.9em;
+	background-color: var(--accent-color);
+}
+
+.chapter-card {
+	width: calc(100% - 14px);
+	height: auto;
+	padding: 5px;
+	margin-bottom: 5px;
+	border: solid 2px var(--primary-color);
+	border-radius: 5px;
+	background-color: var(--secondary-color);
+}
+
+.chapter-card-front {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	min-height: 50px;
+}
+
+.chapter-card-header {
+	font-size: 1.6em;
+	flex-grow: 1;
+}
+
+.chapter-card-rightsection {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-end;
+	width: 400px;
+	height: 100%; /* parent height is 50px */
+	padding: 10px;
+}
+
+.chapter-card-checkbox {
+	width: 20px;
+	min-width: 20px;
+	height: 20px;
+	min-height: 20px;
+	border-radius: 5px;
+	background-color: #767676;
+	transition: background-color 250ms ease-out;
+}
+
+.chapter-card-checkbox-hover {
+	background-color: #fff;
+}
+
+.chapter-card-checkbox-activated {
+	background-color: var(--accent-color);
+}
+
+.chapter-card-back {
+	padding-top: 5px;
+	width: auto;
+}
+
+.details-content-container {
+	line-height: 1.5;
+	margin-top: 5px;
+	padding: 5px;
+	border-top: 1px solid white;
+	border-radius: 0 0 5px 5px;
+	background-color: var(--tertiary-color);
+}
+
+.details-content-ele {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	min-width: 100%;
+	height: auto;
+}
+
+.details-content-ele .chapter-card-checkbox {
+	/* already vertically aligned; no need for flex containers */
+	margin-right: 5px;
+}

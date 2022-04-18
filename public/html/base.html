@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale = 1.0" />
+
+		<link rel="stylesheet" href="./../css/includes/default.css">
+		<link rel="stylesheet" href="./../css/base.css">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="" rel="stylesheet">
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script type="importmap">
+			{
+			"imports": {
+				"socket.io-client": "https://cdn.socket.io/4.4.1/socket.io.esm.min.js"
+				}
+			}
+		</script>
+		<script type="module" src="./../js/base.js"></script>
+
+		<title>redef.</title>
+	</head>
+	<body style="max-width: 100%; min-height: 100vh">
+		<div class="alertdialog-container-hidden" id="alertdialog-container" style="display: none;">
+			<button id="alertdialog-textcontainer">
+				<div class="hidden" id="alertdialog-close">
+					[ Close ]
+				</div>
+				<div id="alertdialog-text">
+					-
+				</div>
+			</button>
+		</div>
+		<div id="big-container">
+			<div id="topbar-container">
+				<div id="profile-container">
+					<div id="profile-container-background">
+						<span id="profile-name">User</span>
+					</div>
+				</div>
+			</div>
+			<div id="board-container">
+				<div id="board-navigation">
+					<button class="board-navigation-buttons" id="board-navig-tests">
+						Tests
+					</button>
+					<button class="board-navigation-buttons" id="board-navig-mastery">
+						Mastery
+					</button>
+					<button class="board-navigation-buttons" id="board-navig-data">
+						Data
+					</button>
+				</div>
+				<div id="actualboard">
+					<span id="actualboard-header">
+						Tests
+					</span>
+					<div class="linebreak-container">
+						<div>
+						</div>
+					</div>
+					<div id="board-contents">
+						<div class="board-screen" id="board-tests">
+							<button class="board-menu-button" id="board-screen-newtest">
+								[ New test ]
+							</button>
+						</div>
+						<div class="board-screen hidden" id="board-mastery">
+						</div>
+						<div class="board-screen hidden" id="board-data">
+							<input type="file" accept=".txt" id="board-data-upload-fileinput" style="display: none;">
+							<button type="submit" class="board-menu-button" id="board-data-upload">
+								[ Upload data ]
+							</button>
+<!-- 							<div class="linebreak-container">
+								<div></div>
+							</div> -->
+							<button class="board-menu-button" id="board-data-edit">
+								[ Edit data ]
+							</button>
+							<div class="linebreak-container">
+								<div></div>
+							</div>
+							<div class="hidden" id="board-data-dataarea">
+								<div id="board-data-scrollcontentcontainer">
+									<div class="datasection-header" id="board-data-toadd-header">
+										To add
+									</div>
+									<div class="cardcontainer" id="toadd-section">
+										<div class="datacard">
+											<span class="datacard-header">
+												[chapter 1] [biology]
+											</span>
+											<details class="datacard-expandable">
+												<summary></summary>
+												<div class="datacard-content">
+													<span class="datacard-content-ele-header">
+														Tourist
+													</span>
+													<div class="datacard-content-ele">
+														<div>
+															<span>
+																An individual staying...
+															</span>
+														</div>
+														<div>
+															<span>
+																individual, 24 hours, a year
+															</span>
+														</div>
+													</div>
+													<span class="datacard-content-ele-header">
+														Tourist
+													</span>
+													<div class="datacard-content-ele">
+														<div>
+															<span>
+																An individual staying...
+															</span>
+														</div>
+														<div>
+															<span>
+																individual, 24 hours, a year
+															</span>
+														</div>
+													</div>
+												</div>
+											</details>
+										</div>
+									</div>
+									<div class="linebreak-container">
+										<div></div>
+									</div>
+									<div class="datasection-header" id="board-data-tomodify-header">
+										To modify
+									</div>
+									<div class="cardcontainer" id="tomodify-section">
+										<div class="datacard">
+											<span class="datacard-header">
+												[chapter 1] [biology]
+											</span>
+											<details class="datacard-expandable">
+												<summary></summary>
+												<div class="datacard-content">
+													<span class="datacard-content-ele-header">
+														Tourist
+													</span>
+													<div class="datacard-content-diff">
+														<div class="datacard-content-ele">
+															<div class="datacard-content-diff-new1">
+																<span>
+																	An individual staying...
+																</span>
+															</div>
+															<div class="datacard-content-diff-new2">
+																<span>
+																	individual, 24 hours, a year
+																</span>
+															</div>
+														</div>
+														<div class="datacard-content-ele">
+															<div class="datacard-content-diff-old1">
+																<span>
+																	An individual staying...
+																</span>
+															</div>
+															<div class="datacard-content-diff-old2">
+																<span>
+																	individual, 24 hours, a year
+																</span>
+															</div>
+														</div>
+													</div>
+												</div>
+											</details>
+										</div>
+									</div>
+								</div>
+								<button class="board-menu-button" id="board-data-submitbutton">
+									[ Submit ]
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

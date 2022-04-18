@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale = 1.0" />
+
+		<link rel="stylesheet" href="./../../css/includes/default.css">
+		<link rel="stylesheet" href="./../../css/views/register.css">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="" rel="stylesheet">
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script type="module" src="./../../js/views/register.js"></script>
+
+		<title>redef./register</title>
+	</head>
+	<body style="max-width: 100%; min-height: 100%">
+		<div class="alertdialog-container-hidden" id="alertdialog-container" style="display: none;">
+			<button id="alertdialog-textcontainer">
+				<div class="hidden" id="alertdialog-close">
+					[ Close ]
+				</div>
+				<div id="alertdialog-text">
+					-
+				</div>
+			</button>
+		</div>
+		<div id="big-container">
+			<div class="unselectable" id="logo">
+				ReDef.
+			</div>
+			<form id="interface-card" novalidate>
+				<label class="unselectable" for="username" id="usernameInputLabel">Username</label>
+				<input id="usernameInput" type="text" placeholder="username" name="username" autocomplete="off" title="" required minlength="5" maxlength="25" pattern="^[a-zA-Z\d]*$">
+				<label class="unselectable" for="password" id="passwordInputLabel">Password</label>
+				<input id="passwordInput" type="password" placeholder="password" name="password" title="" required minlength="6" maxlength="25" pattern="^[a-zA-Z_\d]*$">
+				<label class="unselectable" for="license" id="licenseInputLabel">License</label>
+				<input id="licenseInput" type="text" placeholder="license key" name="license" autocomplete="off" title="" required minlength="30" maxlength="30" pattern="^[0-9a-f]{30}$">
+
+				<button id="proceed" type="submit">
+					<span id="submitButtonText">Proceed</span>
+					<div id="submitLoader"></div>
+				</button>
+			</form>
+		</div>
+	</body>
+</html>

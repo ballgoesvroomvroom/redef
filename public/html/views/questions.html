@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale = 1.0" />
+
+		<link rel="stylesheet" href="./../../css/includes/default.css">
+		<link rel="stylesheet" href="./../../css/views/questions.css">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="" rel="stylesheet">
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script type="module" src="./../../js/views/questions.js"></script>
+
+		<title>redef.</title>
+	</head>
+	<body style="max-width: 100%; min-height: 100vh">
+		<div class="alertdialog-container-hidden" id="alertdialog-container" style="display: none;">
+			<button id="alertdialog-textcontainer">
+				<div class="hidden" id="alertdialog-close">
+					[ Close ]
+				</div>
+				<div id="alertdialog-text">
+					-
+				</div>
+			</button>
+		</div>
+		<div id="big-container">
+			<div class="unselectable" id="stat-container">
+				<div id="stat-counter">
+					<div id="stat-counter-wrong" unselectable="on">
+						<div class="stat-counter-header" unselectable="on">
+							wrong
+						</div>
+						<span class="stat-span-disp">0</span>
+					</div>
+					<div id="stat-counter-correct" unselectable="on">
+						<div class="stat-counter-header" unselectable="on">
+							correct
+						</div>
+						<span class="stat-span-disp">0</span>
+					</div>
+					<div id="stat-counter-total" unselectable="on">
+						<div class="stat-counter-header" unselectable="on">
+							total
+						</div>
+						<span class="stat-span-disp">0/0</span>
+					</div>
+				</div>
+				<div id="stat-track">
+				</div>
+			</div>
+			<div class id="play-area">
+				<div class="unselectable" id="word-header">
+					<div id="word-chapter-header">
+						[-]
+					</div>
+					<span id="word-header-content">:</span>
+				</div>
+				<div id="answer-box-container">
+					<div id="answer-box">
+					</div>
+					<div id="marking-sheet">
+					</div>
+				</div>
+				<div id="submit-button-container">
+					<button id="submit-button">
+						Test
+					</button>
+				</div>
+			</div>
+			<div class="hidden" id="results-container">
+<!-- 				<div class="resultcard">
+					<div class="resultcard-textcontainer">
+						<div class="resultcard-headercontainer">
+							<div class="resultcard-chapterheader">
+								<span>[chapter 1] [sub chapter]</span>
+							</div>
+							<div class="resultcard-wordheader">
+								<span>word1</span>
+							</div>
+						</div>
+						<div class="resultcard-scorecontainer">
+							<div class="resultcard-score correct">
+								<span>3/4</span>
+							</div>
+						</div>
+					</div>
+					<div class="resultcard-comparisontable">
+						<div class="resultcard-left">
+							<span>My answer here!</span>
+						</div>
+						<div class="resultcard-right">
+							<span>the correct answer here!</span>
+						</div>
+					</div>
+				</div>
+			</div> -->
+		</div>
+	</body>
+</html>

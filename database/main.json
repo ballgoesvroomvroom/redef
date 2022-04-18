@@ -1,0 +1,885 @@
+{
+	"admin": {
+		"password": "thisisntmypassword",
+		"tests": [
+			{
+				"id": 0,
+				"state": 2,
+				"score": 1,
+				"total": 4,
+				"stoppedAt": 4,
+				"data": [
+					[
+						0,
+						0
+					],
+					[
+						0,
+						1
+					],
+					[
+						0,
+						2
+					],
+					[
+						0,
+						3
+					]
+				],
+				"contents": [
+					[
+						[
+							"Chapter 1",
+							"1.2"
+						],
+						"Processor",
+						"Arithmetic Logic Unit",
+						"Control Unit",
+						"Process registers"
+					]
+				],
+				"uanswers": [
+					"consists of an arithmetic logic unit",
+					"carries out basic arithmetic operations such as addition, subtraction, multiplication and division. this unit does the actual work of performing calculations and transforming data",
+					"follows instructions to decide when data is stored, received or transmitted by the different parts of the computer. this unit ensures that the data is where it needs to be and is processed in the correct order",
+					"physically located within the processor. they are extremely fast but have small data storage and is directly accessed by the cpu"
+				],
+				"individual_scores": [
+					[
+						1,
+						false
+					],
+					[
+						7,
+						true
+					],
+					[
+						6,
+						false
+					],
+					[
+						2,
+						false
+					]
+				],
+				"cache": []
+			},
+			{
+				"id": 1,
+				"state": 1,
+				"score": 3,
+				"total": 24,
+				"stoppedAt": 13,
+				"data": [
+					[
+						0,
+						0
+					],
+					[
+						0,
+						1
+					],
+					[
+						0,
+						2
+					],
+					[
+						0,
+						3
+					],
+					[
+						1,
+						0
+					],
+					[
+						1,
+						1
+					],
+					[
+						1,
+						2
+					],
+					[
+						1,
+						3
+					],
+					[
+						2,
+						0
+					],
+					[
+						2,
+						1
+					],
+					[
+						2,
+						2
+					],
+					[
+						3,
+						0
+					],
+					[
+						3,
+						1
+					],
+					[
+						3,
+						2
+					],
+					[
+						3,
+						3
+					],
+					[
+						4,
+						0
+					],
+					[
+						4,
+						1
+					],
+					[
+						4,
+						2
+					],
+					[
+						4,
+						3
+					],
+					[
+						4,
+						4
+					],
+					[
+						4,
+						5
+					],
+					[
+						4,
+						6
+					],
+					[
+						4,
+						7
+					],
+					[
+						4,
+						8
+					]
+				],
+				"contents": [
+					[
+						[
+							"Chapter 1",
+							"1.2"
+						],
+						"Processor",
+						"Arithmetic Logic Unit",
+						"Control Unit",
+						"Process registers"
+					],
+					[
+						[
+							"Chapter 1",
+							"1.3"
+						],
+						"Random access memory",
+						"Volatile memory",
+						"Read-only memory",
+						"Secondary storage"
+					],
+					[
+						[
+							"Chapter 1",
+							"1.4"
+						],
+						"Bus",
+						"Data bus",
+						"Address bus"
+					],
+					[
+						[
+							"Chapter 1",
+							"1.5"
+						],
+						"Input",
+						"Output",
+						"Input device",
+						"Output device"
+					],
+					[
+						[
+							"Chapter 1",
+							"1.6"
+						],
+						"Secondary storage",
+						"Factors choosing storage media for secondary storage",
+						"Types of storage media",
+						"Advantages of magnetic storage media",
+						"Disadvantages of magnetic storage media",
+						"Advantages of optical storage media",
+						"Disadvantages of optical storage media",
+						"Advantages of solid-state media",
+						"Disadvantages of solid-state media"
+					]
+				],
+				"uanswers": [
+					"consists of an arithmetic logic unit",
+					"carries out basic arithmetical and logical operations, such as addition, subtraction, multiplication, division. this unit does the actual work of performing calculations and transforming data",
+					"follows instructions and decides when data should be stored, received, transmitted by various parts of the computer, including the alu. this unit ensures that data is where it needs to be and is processed in the correct order",
+					"physically located inside the processor. they are extremely small and fast memory but has small data space. it is directly accessed by the alu and control unit. the number and size of these registers cannot be easily changed",
+					"where data is stored temporary, ram is volatile, meaning the data stored inside will be lost when power supply is interrupted. such example is when an application loads up and its data is stored into the ram",
+					"memory whose data will be lost when power supply is interrupted",
+					"where data and instructions that rarely needs to be changed are stored permanently, it is non-volatile",
+					"large amounts of data are stored hard disk",
+					"a collection of wires used as a \"highway\" for data to travel on. it is made up of copper wires",
+					"transports data from memory or processed data from the processor, bi-directional as data can travel to and fro from the memory to the processor or vice versa",
+					"specifies memory address to the processor. uni-directional as data can only travel in a single direction, from the memory to the processor",
+					"user input",
+					"refers to the intermediate results returned by the computer for people",
+					"",
+					"",
+					"",
+					"",
+					"",
+					"",
+					"",
+					"",
+					"",
+					"",
+					""
+				],
+				"individual_scores": [
+					[
+						1,
+						false
+					],
+					[
+						7,
+						true
+					],
+					[
+						6,
+						false
+					],
+					[
+						1,
+						false
+					],
+					[
+						0,
+						false
+					],
+					[
+						1,
+						true
+					],
+					[
+						1,
+						false
+					],
+					[
+						2,
+						true
+					],
+					[
+						2,
+						false
+					],
+					[
+						1,
+						false
+					],
+					[
+						2,
+						false
+					],
+					[
+						0,
+						false
+					],
+					[
+						1,
+						false
+					]
+				],
+				"cache": []
+			}
+		],
+		"words": {
+			"chapter 1": [
+				{
+					"biology": [
+						{},
+						{
+							"plasma": [
+								"carries nutrients in the blood",
+								"carries|contains|carry|contain",
+								"nutrients|nutrients"
+							],
+							"cytoplasm": [
+								"contains the cell items",
+								"contains the cell items"
+							],
+							"without": [
+								"placeholder for now",
+								"placeholder",
+								"now"
+							]
+						}
+					]
+				},
+				{
+					"what is life": [
+						"hmmmm",
+						"ovaries and what not"
+					]
+				}
+			],
+			"chapter 2": [
+				{
+					"geography gw2": [
+						{},
+						{
+							"define tourist": [
+								"an individual who stays at an unfamiliar place for more than 24 hours but not longer than a year",
+								"unfamiliar place",
+								"24 hours",
+								"a year"
+							]
+						}
+					],
+					"chapter 2.1": [
+						{
+							"chapter 2.1.1": [
+								{},
+								{
+									"word2": [
+										"hello bye",
+										"bye"
+									],
+									"word3": [
+										"hello non",
+										"non"
+									]
+								}
+							]
+						},
+						{
+							"word1": [
+								"hello there",
+								"hello"
+							]
+						}
+					]
+				},
+				{}
+			],
+			"Reproduction": [
+				{
+					"Human repro": [
+						{},
+						{
+							"Ovulation": [
+								"The process where ovaries release a matured egg into the oviduct for fertilisation",
+								"ovaries",
+								"release",
+								"matured egg",
+								"oviduct",
+								"fertilisation"
+							]
+						}
+					],
+					"Plant repo": [
+						{},
+						{
+							"Sepal": [
+								"Modified leaf to protect the flower",
+								"modified|hello|hello|hello|hello",
+								"protect"
+							]
+						}
+					]
+				},
+				{
+					"Gametes": [
+						"Sex cells",
+						"sex",
+						"cells"
+					],
+					"Fertilisation": [
+						"The fusion of the nuclei of both the male and female gamete",
+						"fusion",
+						"nuclei",
+						"male",
+						"female",
+						"gamete"
+					]
+				}
+			],
+			"Chapter 1": [
+				{
+					"1.2": [
+						{},
+						{
+							"Processor": [
+								"Consists of Arithmetic Logic Unit and Control Unit",
+								"arithmetic logic unit",
+								"control unit"
+							],
+							"Arithmetic Logic Unit": [
+								"Processes data by performing logical and arithmetical operations such as addition, subtraction, multiplication and division. Does the actual work of performing calculations and transforming data",
+								"processes data",
+								"performing logical and arithmetical operations",
+								"addition",
+								"subtraction",
+								"multiplication",
+								"division",
+								"actual work",
+								"performing",
+								"transforming data"
+							],
+							"Control Unit": [
+								"Follows instructions and decides when data should be stored, received, transmitted by different parts of the computer (including the ALU). The unit makes sure that data is transported to where it needs to be, and is processed in the correct order",
+								"follows instructions",
+								"decides when data",
+								"stored",
+								"received",
+								"transmitted",
+								"different parts of the computer",
+								"makes sure",
+								"transported to where needs to be",
+								"processed in the correct order"
+							],
+							"Process registers": [
+								"Physically located inside the processor. They are extremely fast and has small data storage space, used directly by the ALU and control unit. Number and size of processor registers cannot be changed without changing the processor",
+								"physically located",
+								"extremely fast",
+								"small data storage space",
+								"used directly by alu and control unit",
+								"number and size of processor registers cannot be changed"
+							]
+						}
+					],
+					"1.3": [
+						{},
+						{
+							"Random access memory": [
+								"Where data and instructions are stored temporarily so that they can be quickly accessed by the processor when needed.Example - when an application is started, its instructions may be loaded into RAM. Data stored on RAM can be easily changed and is also volatile, which means that it is lost once the power supply to the computer is interrupted.",
+								"where data and instructions are stored temporarily",
+								"quickly accessed by the processor when needed"
+							],
+							"Volatile memory": [
+								"Memory that will be lost when power supply is interrupted",
+								"lost when power supply is interrupted"
+							],
+							"Read-only memory": [
+								"Where data and instructions that rarely need to change or would be needed for a computer to start up are stored. Data stored on ROM cannot be easily changed and remains there regardless of whether the power supply is switched on or off. This makes it ideal for storing instructions that are needed before data can be loaded into RAM",
+								"data and instructions",
+								"rarely need to change or would be needed for a computer",
+								"cannot be easily changed",
+								"remains there regardless of whether the power supply"
+							],
+							"Secondary storage": [
+								"Where large amounts of data are stored, such as in a hard disk or hard drive.",
+								"large amounts of data are stored",
+								"hard disk|drive"
+							]
+						}
+					],
+					"1.4": [
+						{},
+						{
+							"Bus": [
+								"A collection of wires that serves as a “highway” for data to travel on. It can be made of either physical wires or conductive lines printed on a circuit board",
+								"collection of wires",
+								"for data to travel on",
+								"physical wires",
+								"conductive lines",
+								"circuit board"
+							],
+							"Data bus": [
+								"Transports data that is going to be processed to the CPU, as well as the data that has already been processed from the CPU. The data bus is bi-directional because data can be sent in both directions between the processor and memory",
+								"transports data",
+								"going to be processed",
+								"data that has already been processed",
+								"both directions",
+								"between the processor and memory"
+							],
+							"Address bus": [
+								"Specifies memory address information. When the processor reads from or writes to memory (RAM), the relevant address information is provided on the address bus. The address bus is uni-directional because address information is always sent in one direction only, that is, from the processor to memory",
+								"specifies",
+								"memory address information",
+								"reads from",
+								"writes to memory",
+								"relevant address information",
+								"provided on the address bus",
+								"uni-directional",
+								"in one direction only",
+								"processor to memory"
+							]
+						}
+					],
+					"1.5": [
+						{},
+						{
+							"Input": [
+								"Refers to data or instructions that the computer receives for processing.Example: words entered using a keyboard",
+								"data",
+								"instructions",
+								"receives",
+								"processing"
+							],
+							"Output": [
+								"Refers to any intermediate or final results produced by the computer in the form of processed data.Example: Images displayed on a screen, sounds played on a speaker",
+								"intermediate",
+								"final results",
+								"form of processed data"
+							],
+							"Input device": [
+								"An input device is a hardware device that allows users to enter data and instructions into a computer.Example: keyboards",
+								"hardware device",
+								"enter",
+								"data and instructions"
+							],
+							"Output device": [
+								"An output device is a hardware device used to display, project or print processed data from a computer so it can be used or understood by people using the computer.Example: monitors",
+								"hardware device",
+								"display",
+								"project",
+								"print",
+								"processed data",
+								"used",
+								"understood",
+								"people"
+							]
+						}
+					],
+					"1.6": [
+						{},
+						{
+							"Secondary storage": [
+								"Secondary storage is a way of storing large amounts of data that will not be lost when power supply is interrupted. Compared to RAM, secondary storage is usually cheaper and able to store much more data. It is also non-volatile, so the data that is stored remains there even without a power supply. This makes secondary storage ideal for physically transporting data from one computer to another. On the other hand, secondary storage is usually much slower in speed compared to RAMThe processor usually does not access data in secondary storage directly. Instead, any data in secondary storage that the processor needs might be copied to RAM first",
+								"storing large amounts",
+								"not be lost",
+								"power supply",
+								"interrupted",
+								"cheaper",
+								"store much more data",
+								"non-volatile",
+								"much slower"
+							],
+							"Factors choosing storage media for secondary storage": [
+								"Capacity, speed, portability, durability, cost",
+								"capacity\\, speed\\, portability\\, durability\\, cost"
+							],
+							"Types of storage media": [
+								"* magnetic,* optical,* solid-state",
+								"magnetic",
+								"optical",
+								"solid-state"
+							],
+							"Advantages of magnetic storage media": [
+								"Large capacity of up to terabytes of dataRelatively cheaper than optical and solid-state storage media",
+								"large capacity",
+								"terabytes",
+								"cheaper",
+								"optical",
+								"solid-state",
+								"storage media"
+							],
+							"Disadvantages of magnetic storage media": [
+								"Easily damaged and will eventually break over timeMuch slower than solid-state storage media",
+								"easily damaged",
+								"break over time",
+								"slower",
+								"solid-state",
+								"storage media"
+							],
+							"Advantages of optical storage media": [
+								"Large capacity of up to gigabytes (GB) of data",
+								"large capacity",
+								"gigabytes"
+							],
+							"Disadvantages of optical storage media": [
+								"Data can only be written once for some non-rewritable formatsLower maximum storage capacity than magnetic storage mediaVulnerable to scratches and fingerprints",
+								"written once",
+								"non-rewritable formats",
+								"lower",
+								"maximum storage capacity",
+								"magnetic storage media",
+								"vulnerable",
+								"scratches",
+								"fingerprints"
+							],
+							"Advantages of solid-state media": [
+								"Much faster than magnetic or optical storage mediaNot as vulnerable to drops, mechanical shocks, scratches or fingerprint",
+								"faster",
+								"magnetic",
+								"optical",
+								"storage media",
+								"not as vulnerable",
+								"drops",
+								"mechanical shocks",
+								"scratches",
+								"fingerprints"
+							],
+							"Disadvantages of solid-state media": [
+								"Much more expensive than magnetic or optical storage media",
+								"expensive",
+								"magnetic",
+								"optical",
+								"storage"
+							]
+						}
+					]
+				},
+				{}
+			]
+		},
+		"metadata": {
+			"wordsLastUpdated": 1,
+			"testsLastUpdated": 10,
+			"testsCreated": 2
+		},
+		"preferences": {
+			"wordsCaseSens": false,
+			"chaptersCaseSens": false
+		}
+	},
+	"user1": {
+		"password": "password",
+		"tests": [],
+		"words": {
+			"Chapter 1": [
+				{
+					"1.2": [
+						{},
+						{
+							"Processor": [
+								"Consists of Arithmetic Logic Unit and Control Unit",
+								"arithmetic logic unit",
+								"control unit"
+							],
+							"Arithmetic Logic Unit": [
+								"Processes data by performing logical and arithmetical operations such as addition, subtraction, multiplication and division. Does the actual work of performing calculations and transforming data",
+								"processes data",
+								"performing logical and arithmetical operations",
+								"addition",
+								"subtraction",
+								"multiplication",
+								"division",
+								"actual work",
+								"performing",
+								"transforming data"
+							],
+							"Control Unit": [
+								"Follows instructions and decides when data should be stored, received, transmitted by different parts of the computer (including the ALU). The unit makes sure that data is transported to where it needs to be, and is processed in the correct order",
+								"follows instructions",
+								"decides when data",
+								"stored",
+								"received",
+								"transmitted",
+								"different parts of the computer",
+								"makes sure",
+								"transported to where needs to be",
+								"processed in the correct order"
+							],
+							"Process registers": [
+								"Physically located inside the processor. They are extremely fast and has small data storage space, used directly by the ALU and control unit. Number and size of processor registers cannot be changed without changing the processor",
+								"physically located",
+								"extremely fast",
+								"small data storage space",
+								"used directly by alu and control unit",
+								"number and size of processor registers cannot be changed"
+							]
+						}
+					],
+					"1.3": [
+						{},
+						{
+							"Random access memory": [
+								"Where data and instructions are stored temporarily so that they can be quickly accessed by the processor when needed.Example - when an application is started, its instructions may be loaded into RAM. Data stored on RAM can be easily changed and is also volatile, which means that it is lost once the power supply to the computer is interrupted.",
+								"where data and instructions are stored temporarily",
+								"quickly accessed by the processor when needed"
+							],
+							"Volatile memory": [
+								"Memory that will be lost when power supply is interrupted",
+								"lost when power supply is interrupted"
+							],
+							"Read-only memory": [
+								"Where data and instructions that rarely need to change or would be needed for a computer to start up are stored. Data stored on ROM cannot be easily changed and remains there regardless of whether the power supply is switched on or off. This makes it ideal for storing instructions that are needed before data can be loaded into RAM",
+								"data and instructions",
+								"rarely need to change or would be needed for a computer",
+								"cannot be easily changed",
+								"remains there regardless of whether the power supply"
+							],
+							"Secondary storage": [
+								"Where large amounts of data are stored, such as in a hard disk or hard drive.",
+								"large amounts of data are stored",
+								"hard disk|drive"
+							]
+						}
+					],
+					"1.4": [
+						{},
+						{
+							"Bus": [
+								"A collection of wires that serves as a “highway” for data to travel on. It can be made of either physical wires or conductive lines printed on a circuit board",
+								"collection of wires",
+								"for data to travel on",
+								"physical wires",
+								"conductive lines",
+								"circuit board"
+							],
+							"Data bus": [
+								"Transports data that is going to be processed to the CPU, as well as the data that has already been processed from the CPU. The data bus is bi-directional because data can be sent in both directions between the processor and memory",
+								"transports data",
+								"going to be processed",
+								"data that has already been processed",
+								"both directions",
+								"between the processor and memory"
+							],
+							"Address bus": [
+								"Specifies memory address information. When the processor reads from or writes to memory (RAM), the relevant address information is provided on the address bus. The address bus is uni-directional because address information is always sent in one direction only, that is, from the processor to memory",
+								"specifies",
+								"memory address information",
+								"reads from",
+								"writes to memory",
+								"relevant address information",
+								"provided on the address bus",
+								"uni-directional",
+								"in one direction only",
+								"processor to memory"
+							]
+						}
+					],
+					"1.5": [
+						{},
+						{
+							"Input": [
+								"Refers to data or instructions that the computer receives for processing.Example: words entered using a keyboard",
+								"data",
+								"instructions",
+								"receives",
+								"processing"
+							],
+							"Output": [
+								"Refers to any intermediate or final results produced by the computer in the form of processed data.Example: Images displayed on a screen, sounds played on a speaker",
+								"intermediate",
+								"final results",
+								"form of processed data"
+							],
+							"Input device": [
+								"An input device is a hardware device that allows users to enter data and instructions into a computer.Example: keyboards",
+								"hardware device",
+								"enter",
+								"data and instructions"
+							],
+							"Output device": [
+								"An output device is a hardware device used to display, project or print processed data from a computer so it can be used or understood by people using the computer.Example: monitors",
+								"hardware device",
+								"display",
+								"project",
+								"print",
+								"processed data",
+								"used",
+								"understood",
+								"people"
+							]
+						}
+					],
+					"1.6": [
+						{},
+						{
+							"Secondary storage": [
+								"Secondary storage is a way of storing large amounts of data that will not be lost when power supply is interrupted. Compared to RAM, secondary storage is usually cheaper and able to store much more data. It is also non-volatile, so the data that is stored remains there even without a power supply. This makes secondary storage ideal for physically transporting data from one computer to another. On the other hand, secondary storage is usually much slower in speed compared to RAMThe processor usually does not access data in secondary storage directly. Instead, any data in secondary storage that the processor needs might be copied to RAM first",
+								"storing large amounts",
+								"not be lost",
+								"power supply",
+								"interrupted",
+								"cheaper",
+								"store much more data",
+								"non-volatile",
+								"much slower"
+							],
+							"Factors choosing storage media for secondary storage": [
+								"Capacity, speed, portability, durability, cost",
+								"capacity\\, speed\\, portability\\, durability\\, cost"
+							],
+							"Types of storage media": [
+								"* magnetic,* optical,* solid-state",
+								"magnetic",
+								"optical",
+								"solid-state"
+							],
+							"Advantages of magnetic storage media": [
+								"Large capacity of up to terabytes of dataRelatively cheaper than optical and solid-state storage media",
+								"large capacity",
+								"terabytes",
+								"cheaper",
+								"optical",
+								"solid-state",
+								"storage media"
+							],
+							"Disadvantages of magnetic storage media": [
+								"Easily damaged and will eventually break over timeMuch slower than solid-state storage media",
+								"easily damaged",
+								"break over time",
+								"slower",
+								"solid-state",
+								"storage media"
+							],
+							"Advantages of optical storage media": [
+								"Large capacity of up to gigabytes (GB) of data",
+								"large capacity",
+								"gigabytes"
+							],
+							"Disadvantages of optical storage media": [
+								"Data can only be written once for some non-rewritable formatsLower maximum storage capacity than magnetic storage mediaVulnerable to scratches and fingerprints",
+								"written once",
+								"non-rewritable formats",
+								"lower",
+								"maximum storage capacity",
+								"magnetic storage media",
+								"vulnerable",
+								"scratches",
+								"fingerprints"
+							],
+							"Advantages of solid-state media": [
+								"Much faster than magnetic or optical storage mediaNot as vulnerable to drops, mechanical shocks, scratches or fingerprint",
+								"faster",
+								"magnetic",
+								"optical",
+								"storage media",
+								"not as vulnerable",
+								"drops",
+								"mechanical shocks",
+								"scratches",
+								"fingerprints"
+							],
+							"Disadvantages of solid-state media": [
+								"Much more expensive than magnetic or optical storage media",
+								"expensive",
+								"magnetic",
+								"optical",
+								"storage"
+							]
+						}
+					]
+				},
+				{}
+			]
+		},
+		"metadata": {
+			"wordsLastUpdated": 2,
+			"testsLastUpdated": 9,
+			"testsCreated": 0
+		},
+		"preferences": {
+			"wordsCaseSens": false,
+			"chaptersCaseSens": false
+		}
+	}
+}

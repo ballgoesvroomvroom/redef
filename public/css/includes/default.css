@@ -1,0 +1,232 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/*https://stackoverflow.com/a/45890842*/
+button, input[type="submit"], input[type="reset"], form {
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: inherit;
+	outline: inherit;
+	margin: 0;
+}
+button {
+	cursor: pointer;
+}
+/* FINISH CSS RESET */
+
+:root {
+	--primary-color: #212121;
+	--secondary-color: #303030;
+	--secondary-color-with-trans: rgba(48, 48, 48, 0.4);
+	--tertiary-color: #454545;
+	--accent-color: #686385;
+	--accent-color-2: #5171c2;
+	--gradientbackground: linear-gradient(#171717, #303030);
+	--defaultbackground: #212121;
+
+	--red: #cc7070;
+	--green: #81cc70;
+}
+
+/* https://www.w3schools.com/howto/howto_css_custom_scrollbar.asp */
+/* width */
+::-webkit-scrollbar {
+	width: 5px;
+	height: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	border-radius: 5px;
+	background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
+
+.undraggable {
+	user-drag: none;
+	-webkit-user-drag: none;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}
+
+.unselectable {
+	/*
+	make text unselectable
+	https://stackoverflow.com/a/6900392
+	*/
+	-webkit-user-select: none; /* Safari */
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+/Edge */
+	user-select: none; /* Standard */
+}
+
+.linebreak-container {
+	display: flex;
+	justify-content: center;
+	width: calc(100% - 10px);
+	height: 2px;
+	padding: 5px;
+	padding-top: 5px;
+}
+
+.linebreak-container > div {
+	width: 100%;
+	height: 100%;
+	border-radius: 1px;
+	background-color: #c9c9c9;
+}
+
+.hidden {
+	display: none !important;
+}
+
+#alertdialog-container {
+	position: absolute;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: flex-start;
+	width: 100%;
+	height: auto;
+	z-index: 100;
+	padding-top: 25px;
+	transition: opacity .25s ease-out;
+}
+
+.alertdialog-container-hidden {
+	opacity: 0;
+}
+
+#alertdialog-textcontainer {
+	position: relative;
+	width: auto;
+	min-width: 280px;
+	max-width: 80%;
+	height: auto;
+	min-height: 100px;
+
+	border-radius: 5px;
+	padding: 10px;
+	padding-bottom: 20px;
+	box-shadow: 0 0 9px 4px #4d5a44;
+
+	background-color: rgb(144 179 116 / 86%);
+	z-index: 100;
+
+	transition-duration: .15s;
+	transition-timing-function: ease-in;
+	transition-property: background-color, padding-top, color;
+}
+
+#alertdialog-textcontainer:hover {
+	color: rgba(255, 255, 255, 60%);
+	background-color: rgb(177 209 151 / 76%);
+	padding-top: 20px;
+}
+
+#alertdialog-close {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+
+	width: auto;
+	min-width: 100%;
+	height: auto;
+	min-height: 100%;
+
+	color: #686385;
+	font-size: 2em;
+	z-index: 201;
+}
+
+#alertdialog-text {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: flex-start;
+	width: auto;
+	min-width: calc(100% - 20px);
+	height: auto;
+	min-height: calc(100% - 20px);
+	font-size: 1.6em;
+	z-index: 200;
+}
+
+a {
+	all: unset;
+	cursor: pointer;
+	border-radius: 5px;
+	color: var(--accent-color);
+	font-size: 1.2em;
+}
+
+body {
+	font-family: "Lucida Sans Unicode";
+	color: #fff;
+	word-wrap: break-word;
+}

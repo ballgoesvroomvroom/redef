@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale = 1.0" />
+
+		<link rel="stylesheet" href="./../../css/includes/default.css">
+		<link rel="stylesheet" href="./../../css/views/edit.css">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="" rel="stylesheet">
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script type="module" src="./../../js/views/edit.js"></script>
+
+		<title>redef.</title>
+	</head>
+	<body style="max-width: 100%; min-height: 100vh">
+		<div class="alertdialog-container-hidden" id="alertdialog-container" style="display: none;">
+			<button id="alertdialog-textcontainer">
+				<div class="hidden" id="alertdialog-close">
+					[ Close ]
+				</div>
+				<div id="alertdialog-text">
+					-
+				</div>
+			</button>
+		</div>
+		<div id="big-container">
+			<div id="actualboard">
+				<span id="actualboard-header">
+					Data
+				</span>
+				<div class="linebreak-container">
+					<div>
+					</div>
+				</div>
+				<div id="board-contents">
+					<div class="chapter-card">
+						<div class="chapter-card-front">
+							<div class="chapter-card-header">
+								[chapter 1]
+							</div>
+							<div class="chapter-card-rightsection">
+								<div class="chapter-card-optionscontainer">
+									<button class="unselectable chapter-card-optionbutton">
+										<img class="undraggable" src="/icons/pencil.png">
+									</button>
+									<button class="unselectable chapter-card-optionbutton">
+										<img class="undraggable" src="/icons/trash.png">
+									</button>
+								</div>
+							</div>
+						</div>
+						<div class="chapter-card-back">
+							<details>
+								<summary></summary>
+								<div class="details-content-container">
+									<div class="details-content-ele">
+										<div class="details-content-ele-front">
+											<span>what is life</span>
+											<div class="chapter-card-optionscontainer">
+												<button class="unselectable chapter-card-optionbutton">
+													<img class="undraggable" src="/icons/pencil.png">
+												</button>
+												<button class="unselectable undraggable chapter-card-optionbutton">
+													<img class="undraggable" src="/icons/trash.png">
+												</button>
+											</div>
+										</div>
+										<div class="details-content-ele-back">
+											<span>Answer here</span>
+											<span>keyword1, keyword2</span>
+										</div>
+									</div>
+									<div class="details-content-ele">
+										<div class="details-content-ele-front">
+											<span>what is life</span>
+											<div class="chapter-card-optionscontainer">
+												<button class="unselectable chapter-card-optionbutton">
+													<img class="undraggable" src="/icons/pencil.png">
+												</button>
+												<button class="unselectable undraggable chapter-card-optionbutton">
+													<img class="undraggable" src="/icons/trash.png">
+												</button>
+											</div>
+										</div>
+										<div class="details-content-ele-back">
+											<span>Answer here</span>
+											<span>keyword1, keyword2</span>
+										</div>
+									</div>
+<!-- 									<div class="details-content-ele">
+										<span>ovaries and what not</span>
+										<div class="chapter-card-optionscontainer">
+											<button class="unselectable undraggable chapter-card-optionbutton">
+												<img class="undraggable" src="/icons/pencil.png">
+											</button>
+											<button class="unselectable undraggable chapter-card-optionbutton">
+												<img class="undraggable" src="/icons/trash.png">
+											</button>
+										</div>
+									</div> -->
+								</div>
+							</details>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<dialog id="modal-dialog">
+			<div id="modal-contentscontainer">
+				<span id="modal-header">
+					EDIT: [chapter 1]
+				</span>
+				<div class="linebreak-container">
+					<div>
+					</div>
+				</div>
+				<div class="sectioncontainer" id="modal-renamesection">
+					<span class="sectionheader" id="modal-renamesection-header">
+						Rename:
+					</span>
+					<input id="modal-renamesection-input" type="test" placeholder="new name..">
+				</div>
+				<div class="sectioncontainer" id="modal-wordsection">
+					<span class="sectionheader" id="modal-wordsection-header">
+						Words:
+					</span>
+					<div id="modal-wordselection-container">
+						<span id="modal-wordsection-selectedcount">
+							Selected: 0
+						</span>
+						<div class="hidden" id="modal-wordselection-options">
+							<button id="modal-wordselection-delete">
+								<img src="/icons/trash.png">
+							</button>
+						</div>
+					</div>
+					<div id="modal-wordsection-expandable">
+						<div class="wordsection-card">
+							<div class="wordsection-card-top">
+								<span class="wordsection-card-header">
+									word1
+								</span>
+								<button class="wordsection-card-checkbox">
+								</button>
+							</div>
+							<div class="wordsection-card-bottom">
+								<textarea readonly class="wordsection-card-input wordsection-card-def">...</textarea>
+								<textarea readonly class="wordsection-card-input wordsection-card-keyword">...</textarea>
+							</div>
+						</div>
+						<div class="wordsection-card">
+							<div class="wordsection-card-top">
+								<span class="wordsection-card-header">
+									word1
+								</span>
+								<button class="wordsection-card-checkbox">
+								</button>
+							</div>
+							<div class="wordsection-card-bottom">
+								<textarea readonly class="wordsection-card-input wordsection-card-def">...</textarea>
+								<textarea readonly class="wordsection-card-input wordsection-card-keyword">...</textarea>
+							</div>
+						</div>
+						<div class="wordsection-card">
+							<div class="wordsection-card-top">
+								<span class="wordsection-card-header">
+									word1
+								</span>
+								<button class="wordsection-card-checkbox">
+								</button>
+							</div>
+							<div class="wordsection-card-bottom">
+								<textarea readonly class="wordsection-card-input wordsection-card-def">...</textarea>
+								<textarea readonly class="wordsection-card-input wordsection-card-keyword">...</textarea>
+							</div>
+						</div>
+						<div class="wordsection-card">
+							<div class="wordsection-card-top">
+								<span class="wordsection-card-header">
+									word1
+								</span>
+								<button class="wordsection-card-checkbox">
+								</button>
+							</div>
+							<div class="wordsection-card-bottom">
+								<textarea readonly class="wordsection-card-input wordsection-card-def">...</textarea>
+								<textarea readonly class="wordsection-card-input wordsection-card-keyword">...</textarea>
+							</div>
+						</div>
+						<div class="wordsection-card">
+							<div class="wordsection-card-top">
+								<span class="wordsection-card-header">
+									word1
+								</span>
+								<button class="wordsection-card-checkbox">
+								</button>
+							</div>
+							<div class="wordsection-card-bottom">
+								<textarea readonly class="wordsection-card-input wordsection-card-def">...</textarea>
+								<textarea readonly class="wordsection-card-input wordsection-card-keyword">...</textarea>
+							</div>
+						</div>
+						<div class="wordsection-card">
+							<div class="wordsection-card-top">
+								<span class="wordsection-card-header">
+									word1
+								</span>
+								<button class="wordsection-card-checkbox">
+								</button>
+							</div>
+							<div class="wordsection-card-bottom">
+								<textarea readonly class="wordsection-card-input wordsection-card-def">...</textarea>
+								<textarea readonly class="wordsection-card-input wordsection-card-keyword">...</textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+				<button class="board-menu-button">
+					[ Save ]
+				</button>
+			</div>
+		</dialog>
+	</body>
+</html>

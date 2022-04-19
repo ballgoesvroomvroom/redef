@@ -216,7 +216,7 @@ function parseTestData(orderedData, contents, wordData, testCache=[]) {
 }
 
 function highlight(contents, keywords) {
-	// wrap words in contents with mark tags to highlight them
+	// wrap keywords in contents with mark tags to highlight them
 	// take in account that words inside keywords may contain spaces
 	// also only match keywords for word boundaries
 
@@ -229,10 +229,37 @@ function highlight(contents, keywords) {
 		}
 	}
 
+	alert("highlighting")
+	// find first index from insertPos
+	let tagged = ""; // store and build up results here
+	let currentPointer = 0; // current head
+	while (insertPos.length > 0) {
+		closest = [contents.length +1, -1]; // set highest to the boundary; aka the furthest
+		// closest = [closestDistance, indexOf]
+		for (let i = 0; i < insertPos.length; i++) {
+			if (insertPos[i][0] < closest[0]) {
+				closest = [insertPos[i][0], i];
+			}
+		}
+
+		if (closest[0] > currentPointer) {
+			tagged += contents.slice(currentPointer, closest[0])
+		}
+		let d = insertPos[closest[1]]; // the closest captured group
+		currentPointer = d[1]; // set head to the end of the captured string
+
+		tagged += `<mark>${contents.slice(d[0], d[1])}</mark>`;
+
+		// remove from insertPos
+		insertPos.splice(closest[1], 1);
+	}
+
+	alert(contents);
+
 	// replace line feeds with <br> tags
 	contents = contents.replace(/\r?\n/gm, "<br>");
 
-	return contents
+	return contents;
 }
 
 $(document).ready(function(e) {

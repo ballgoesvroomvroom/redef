@@ -4,6 +4,8 @@ const localStorage_wordLastUpdated = "clientLastUpdated";
 const localStorage_test = "tests";
 const localStorage_testLastUpdated = "clientTestsLastUpdated";
 
+const regex_linefeed = /\n/gm;
+
 const $selectors = {
 	"alertdialog-container": $("#alertdialog-container"),
 	"alertdialog-textcontainer": $("#alertdialog-textcontainer"),
@@ -236,6 +238,11 @@ function fetchWordData() {
 	});
 }
 
+function LineFeedToBR(s) {
+	// returns line feeds in s, replaces it with "<br>"
+	return s.replaceAll(regex_linefeed, "<br>");
+}
+
 export {
-	dispAlert, fetchTestData, fetchWordData, fetchTestDataByID
+	dispAlert, fetchTestData, fetchWordData, fetchTestDataByID, LineFeedToBR
 }

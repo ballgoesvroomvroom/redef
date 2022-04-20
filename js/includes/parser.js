@@ -66,9 +66,7 @@ class Parser {
 		// returns a number, the amount of indent
 		// chapterString doesn't include the square brackets syntax []
 		// returns chapterIndent, chapterHeader (parsed)
-		console.log("getting", chapterString);
 		var m = chapterString.match(regexObject.headerIndent);
-		console.log(m);
 		if (m === null) {
 			return [0, chapterString];
 		} else {
@@ -127,11 +125,12 @@ class WordObject {
 	}
 
 	addLine(lineContents) {
-		if (this.contents > 0) {
+		if (this.contents.length > 0) {
 			this.contents += "\n"; // preserve new lines
 		}
 
 		this.contents += lineContents;
+		console.log("this.contents:", this.contents)
 	}
 
 	addKeywordsByLine(keywordString) {
@@ -139,7 +138,6 @@ class WordObject {
 		// e.g. "xx, yy, zz, abc"
 		// parse keyword to make them regex friendly; escape reserved characters such as $ etc
 		let keywords = keywordString.split(regexObject.keyword_delimiter);
-		console.log("parser.js:", keywords);
 		for (let i = 0; i < keywords.length; i++) {
 			this.keywords.push(regexSafeParse(keywords[i].toLowerCase())); // convert all of the keywords to lowercase
 		}
@@ -168,6 +166,10 @@ function Parse(contents) {
 	for (let lineCount = 0; lineCount < numnberOfLines; lineCount++) {
 		lineContent = lines[lineCount];
 		if (lineContent.length === 0) {
+			if (!parserObject.isKeywords && !parserObject.isEmpty() && !parserObject.currentChapter.isEmpty()) {
+				// add empty line
+				parserObject.currentChapter.currentWord.addLine("");
+			}
 			continue
 		}
 

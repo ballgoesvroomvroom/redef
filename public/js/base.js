@@ -4,7 +4,7 @@
 // 		token: "THISISMYPASSWORD"
 // 	}
 // })
-import { dispAlert, fetchWordData, fetchTestData } from "./includes/default.js"
+import { dispAlert, fetchWordData, fetchTestData, LineFeedToBR } from "./includes/default.js"
 
 const newlineMatch = /\n/gm;
 const uploadWordData_SSK = "uploadWordData"; // stores parsed content returned by the server
@@ -167,7 +167,7 @@ $(document).ready(() => {
 				});
 				const $new1_span = $("<span>");
 				const $new2_span = $("<span>");
-				$new1_span.text(d.new.content);
+				$new1_span.html(LineFeedToBR(d.new.content));
 				if (d.new.keyword.length > 0) {
 					$new2_span.text(d.new.keyword.join(", "));
 				}
@@ -189,7 +189,7 @@ $(document).ready(() => {
 				});
 				const $old1_span = $("<span>");
 				const $old2_span = $("<span>");
-				$old1_span.text(d.old.content);
+				$old1_span.html(LineFeedToBR(d.old.content));
 				if (d.old.keyword.length > 0) {
 					$old2_span.text(d.old.keyword.join(", "));
 				}
@@ -207,7 +207,7 @@ $(document).ready(() => {
 				});
 				const $div1 = $("<div>");
 				const $span1 = $("<span>");
-				$span1.text(d.content);
+				$span1.html(LineFeedToBR(d.content));
 				$span1.appendTo($div1);
 
 				const $div2 = $("<div>");

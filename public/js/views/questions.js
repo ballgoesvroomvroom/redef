@@ -1,4 +1,4 @@
-import { dispAlert, fetchWordData, fetchTestDataByID } from "./../includes/default.js";
+import { dispAlert, fetchWordData, fetchTestDataByID, LineFeedToBR } from "./../includes/default.js";
 
 const CORRECT_MARGIN = 0.75; // >= 75% to get a correct
 const HTMLSTRIPPER_GENERALCAPTURETAG = /<(\/)?(\w*)[\w\d\(\)\s\/="':\-;.&%]*?>/gm
@@ -332,8 +332,8 @@ $(document).ready(function(e) {
 		$headerSpan.text(chapter);
 		$wordSpan.text(word);
 		$scoreSpan.text(score);
-		$givenAnswerSpan.text(givenAnswer);
-		$correctAnswerSpan.text(correctAnswer);
+		$givenAnswerSpan.html(LineFeedToBR(givenAnswer));
+		$correctAnswerSpan.html(LineFeedToBR(correctAnswer));
 
 		$headerSpan.appendTo($chapterheader);
 		$wordSpan.appendTo($wordheader);

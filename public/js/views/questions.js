@@ -223,10 +223,11 @@ function highlight(contents, keywords) {
 	let insertPos = []; // store numbers
 	// insertPos = [[capturedString, startingIndex], ...]; schema
 	for (let i = 0; i < keywords.length; i++) {
-		let match = contents.matchAll(new RegExp(`\\b${keywords[i]}\\b`, "gmi"));
-		for (let m of match) {
-			insertPos.push([m[0], m.index]);
+		let match = new RegExp(`\\b${keywords[i]}\\b`, "i").exec(contents); // only capture first occurrence of keyword
+		if (match == null) {
+			continue;
 		}
+		insertPos.push([match[0], match.index]);
 	}
 
 	// find first index from insertPos

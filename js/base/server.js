@@ -649,20 +649,23 @@ app.post("/api/test/submitquestion", authenticate, (req, res) => {
 
 	// do the actual matching and scoring
 	let score = 0;
+	let keyword_regex_obj = {}; // store regex objects corresponding to keywords
 	console.log(wordContents);
 	for (let i = 1; i < wordContents.length; i++) {
 		var keyword = wordContents[i];
+		var regex = keyword_regex_obj[keyword];
+		if (regex == null) {
+			// first occurrence
+			// wrap each keyword by a word boundary to capture whole words only
+			regex = new RegExp(`\\b${keyword}\\b`, "gm");
+			keyword_regex_obj[keyword] = regex;
+		}
 
-		// could have multiple alternate keywords; find the one that match; separated by '|'
-		// wrap each keyword by a word boundary to capture whole words only
-		var keywords = keyword.split("|");
-		for (let j = 0; j < keywords.length; j++) {
-			if (givenAnswer.search(new RegExp(`\\b${keywords[j]}\\b`), "gm") !== -1) {
-				// uses regex; don't need to use 'i' flag for case insensitivity since givenAnswer is converted to lowercase; keywords are always ensured to be in lowercase by parser.js on the server-side
-				score += 1;
-
-				break;
-			}
+		if (regex.exec(givenAnswer) != null) {
+			// preserve .lastIndex position internally if theres another match to match double occurring keywords if specified
+			console.log("found something", givenAnswer, keyword)
+			// uses regex; don't need to use 'i' flag for case insensitivity since givenAnswer is converted to lowercase; keywords are always ensured to be in lowercase by parser.js on the server-side
+			score += 1;
 		}
 	}
 

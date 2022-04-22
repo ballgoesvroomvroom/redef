@@ -9,14 +9,18 @@ class regexObject {
 const regexsafeparsemap = {
 	// a mapping of replace characters to ensure string doesnt contain any triggering insertions when performing regex to match for stuff
 	// e.g. keywords match for the entire string
-	[/\$/g]: "\\$",
-	[/\^/g]: "\\^",
-	[/\*/g]: "\\*"
-
+	[/\$/gm]: "\\$",
+	[/\^/gm]: "\\^",
+	[/\*/gm]: "\\*",
+	[/\?/gm]: "\\?",
+	[/\(/gm]: "\\(",
+	[/\)/gm]: "\\)",
+	[/\[/gm]: "\\[",
+	[/\]/gm]: "\\]"
 }
 
 class Parser {
-	constructor() {
+	constructor(options) {
 		this.contents = [];
 
 		// states
@@ -25,6 +29,9 @@ class Parser {
 
 		// keep track of some variables
 		this.prevIndentLevel = 0;
+
+		// store data
+		this.options = options;
 	}
 
 	get currentChapter() {
@@ -33,7 +40,7 @@ class Parser {
 
 	createNewChapter(chapter, indentLevel) {
 		console.log(chapter, indentLevel, this.prevIndentLevel)
-		if (Math.abs(indentLevel -this.prevIndentLevel) > 1) {
+		if (indentLevel > this.prevIndentLevel && indentLevel -this.prevIndentLevel > 1) {
 			// missing nested chapter; chapter indentation increased by more than 1
 			throw new Error("sudden increase in indentLevel for chapter: " +chapter);
 		} else if (indentLevel > 0 && this.contents.length === 0) {
@@ -52,7 +59,7 @@ class Parser {
 			}
 		}
 
-		this.contents.push(new ChapterObject(chapter, indentLevel));
+		this.contents.push(new ChapterObject(chapter, indentLevel, this.options));
 
 		this.isKeywords = false; // reset to default
 		this.prevIndentLevel = indentLevel;
@@ -79,11 +86,13 @@ class Parser {
 }
 
 class ChapterObject {
-	constructor(header, indentLevel) {
+	constructor(header, indentLevel, options) {
 		this.header = header;
 		this.words = [];
 
 		this.indentLevel = indentLevel;
+
+		this.options = options;
 	}
 
 	get currentWord() {
@@ -97,9 +106,9 @@ class ChapterObject {
 	addContentsAsKeywords() {
 		// for no keywords declaration; use current word's contents as current word's keywords (wholesale)
 		let parsed = this.currentWord.contents;
-		parsed = parsed.replace(/\r?\n/gm, " ").replace(/,/gm, "\\,");
+		parsed = parsed.replace(/\r?\n/gm, " ").replace(/,/gm, "\\,"); // strip linefeeds with a single whitespace character, escape delimiters too
 
-		this.currentWord.addKeywordsByLine(parsed);
+		this.currentWord.addKeywordsByLine(parsed, true);
 	}
 
 	addWords(word) {
@@ -112,17 +121,19 @@ class ChapterObject {
 				this.addContentsAsKeywords();
 			}
 		}
-		const wordObj = new WordObject(word);
+		const wordObj = new WordObject(word, options);
 
 		this.words.push(wordObj);
 	}
 }
 
 class WordObject {
-	constructor(word) {
+	constructor(word, options) {
 		this.word = word;
 		this.contents = "";
 		this.keywords = [];
+
+		this.options = options;
 	}
 
 	addLine(lineContents) {
@@ -134,13 +145,23 @@ class WordObject {
 		console.log("this.contents:", this.contents)
 	}
 
-	addKeywordsByLine(keywordString) {
+	addKeywordsByLine(keywordString, escapeRegex=false) {
 		// keywordString: str, raw string before splitting
 		// e.g. "xx, yy, zz, abc"
 		// parse keyword to make them regex friendly; escape reserved characters such as $ etc
 		let keywords = keywordString.split(regexObject.keyword_delimiter);
 		for (let i = 0; i < keywords.length; i++) {
-			this.keywords.push(regexSafeParse(keywords[i].toLowerCase())); // convert all of the keywords to lowercase
+			var keyword = keywords[i];
+			if (keyword.length === 0) {
+				// empty string; don't add
+				continue;
+			} else if (escapeRegex || !this.options.enableRegexCapturing) {
+				// escape regex assertions
+				keyword = regexSafeParse(keyword.toLowerCase());
+			} else {
+				keyword = keyword.toLowerCase();
+			}
+			this.keywords.push(keyword); // convert all of the keywords to lowercase
 		}
 	}
 }
@@ -148,19 +169,19 @@ class WordObject {
 function regexSafeParse(s) {
 	// escapes special characters; such as $
 	for (const r in regexsafeparsemap) {
-		s = s.replace(r, regexsafeparsemap[r]);
+		s = s.replaceAll(r, regexsafeparsemap[r]);
 	}
 
 	return s;
 }
 
-function Parse(contents) {
+function Parse(contents, options={enableRegexCapturing: false}) {
 	/*
 	 * line by line parser
 	 */
 
 	// main object
-	parserObject = new Parser();
+	parserObject = new Parser(options);
 
 	lines = contents.split(/\r?\n/gm);
 	numnberOfLines = lines.length;

@@ -659,6 +659,9 @@ app.post("/api/test/submitquestion", authenticate, (req, res) => {
 			// wrap each keyword by a word boundary to capture whole words only
 			regex = new RegExp(`\\b${keyword}\\b`, "gm");
 			keyword_regex_obj[keyword] = regex;
+		} else if (regex.lastIndex == 0) {
+			// .lastIndex got resetted; no more matches found anyways
+			continue;
 		}
 
 		if (regex.exec(givenAnswer) != null) {

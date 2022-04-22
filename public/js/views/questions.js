@@ -1,7 +1,8 @@
 import { dispAlert, fetchWordData, fetchTestDataByID, LineFeedToBR } from "./../includes/default.js";
 
 const CORRECT_MARGIN = 0.75; // >= 75% to get a correct
-const HTMLSTRIPPER_GENERALCAPTURETAG = /<(\/)?(\w*)[\w\d\(\)\s\/="':\-;.&%]*?>/gm
+const HTMLSTRIPPER_GENERALCAPTURETAG = /<(\/)?(\w*)[\w\d\(\)\s\/="':\-;.&%]*?>/gm;
+const NEGATE_KEYWORDS_REGEX = /^~/gm;
 
 const TRACKMATCH = [ // matches the class id for each stat-track-ele element
 	"wrong", "partiallycorrect", "correct"
@@ -213,9 +214,16 @@ function highlight(contents, keywords) {
 			// keyword has no occurrence yet; this is the first occurrence
 			regexObject = new RegExp(`\\b${keywords[i]}\\b`, "gm")
 			cachedWords[keywords[i]] = regexObject
+		} else if (regexObject.lastIndex === 0) {
+			// no more match; .lastIndex got resetted
+			continue;
 		}
+
 		let match = regexObject.exec(contents); // only capture first occurrence of keyword
-		if (match == null) {
+		NEGATE_KEYWORDS_REGEX.lastIndex = 0;
+		if (match == null || NEGATE_KEYWORDS_REGEX.test(keywords[i])) {
+			// keyword is a negate keyword, skip one occurrence of keyword in contents to disable by setting .lastIndex (done internally when called regexObject.exec(contents))
+			// so just do nothing
 			continue;
 		}
 		insertPos.push([match[0], match.index]);

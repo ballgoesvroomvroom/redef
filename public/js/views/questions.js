@@ -237,6 +237,7 @@ function highlight(contents, keywords) {
 		}
 		insertPos.push([match[0], match.index]);
 	}
+	console.log("CLOSEST", [...insertPos])
 
 	// find first index from insertPos
 	let tagged = ""; // store and build up results here
@@ -251,9 +252,14 @@ function highlight(contents, keywords) {
 			}
 		}
 
-		if (closest[0] > currentPointer) {
+		console.log(closest)
+		if (closest[1] === -1) {
+			// didn't find any match; get out of loop, no other matching keywords
+			break;
+		} else if (closest[0] > currentPointer) {
 			tagged += contents.slice(currentPointer, closest[0]);
 		}
+
 		let d = insertPos[closest[1]]; // the closest captured group
 		currentPointer = d[1] +d[0].length; // set head to the end of the captured string; starting index + length of captured string
 

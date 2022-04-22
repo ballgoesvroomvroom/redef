@@ -229,6 +229,9 @@ mark.highlighter {
 	align-items: stretch;
 	flex-grow: 1;
 	width: 100%;
+
+	font-size: 0.95em;
+	line-height: 1.6;
 }
 
 .resultcard-score {

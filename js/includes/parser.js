@@ -155,7 +155,7 @@ class WordObject {
 		for (let i = 0; i < keywords.length; i++) {
 			var keyword = keywords[i];
 			if (keyword.length === 0) {
-				// empty string; don't add
+				// empty string; don't add!!
 				continue;
 			} else if (escapeRegex || !this.options.enableRegexCapturing) {
 				// escape regex assertions

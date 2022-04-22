@@ -6,7 +6,7 @@ const HTMLSTRIPPER_GENERALCAPTURETAG = /<(\/)?(\w*)[\w\d\(\)\s\/="':\-;.&%]*?>/g
 const TRACKMATCH = [ // matches the class id for each stat-track-ele element
 	"wrong", "partiallycorrect", "correct"
 ]
-const HIGHERLIGHTER = [ // different kinds of higherlighter
+const HIGHLIGHTER = [ // different kinds of higherlighter
 	["<mark class='highlighter'>", "</mark>"]
 ]
 
@@ -248,7 +248,7 @@ function highlight(contents, keywords) {
 		let d = insertPos[closest[1]]; // the closest captured group
 		currentPointer = d[1] +d[0].length; // set head to the end of the captured string; starting index + length of captured string
 
-		tagged += `<mark class="highlighter">${contents.slice(d[1], d[1] +d[0].length)}</mark>`;
+		tagged += `${HIGHLIGHTER[0][0]}${contents.slice(d[1], d[1] +d[0].length)}${HIGHLIGHTER[0][1]}`;
 
 		// remove from insertPos
 		insertPos.splice(closest[1], 1);

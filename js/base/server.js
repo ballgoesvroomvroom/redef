@@ -967,12 +967,17 @@ app.patch("/api/words/renamechapter", authenticate, (req, res) => {
 app.post("/api/words/upload", authenticate, async (req, res) => {
 	const current = database.getUserField(req.session.username, "words");
 	const contents = req.body.contents;
+	const preferences = database.getUserField(req.session.username, "preferences");
 
 	if (contents == null) {
 		return res.status(400).send({"error": "missing body.contents argument"});
 	}
 
-	const parsed = await parser.Parse(contents);
+	const parsed = await parser.Parse(contents,
+		{
+			enableRegexCapturing: preferences.enableRegexCapturing
+		}
+	);
 
 	let path = []; // build path to reference in current
 	let prevChapter = "";

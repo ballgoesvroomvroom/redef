@@ -115,10 +115,8 @@ function parse_html(contents) {
 		// closing is the capture group for the forward slash, "/" in "</div>" etc
 		// tagName being the actual tag name of the html element, such as "br" for captured "<br />" tag
 		// or "div" for captured "<div>" tag
-		console.log(closing, tagName)
 		return closing == null && tagName === "div" ? "\n" : ""; // return a line feed is <div> tag was matched, else strip the html tags
 	})
-	console.log(contents);
 	return contents.toLowerCase(); // answers are converted to lowercase
 }
 

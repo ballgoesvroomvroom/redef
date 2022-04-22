@@ -10,20 +10,6 @@ const HIGHLIGHTER = [ // different kinds of higherlighter
 	["<mark class='highlighter'>", "</mark>"]
 ]
 
-const sample = [
-	// match wordObject in parser.js
-	{
-		word: "plasma",
-		contents: "carries nutrient in the blood",
-		keywords: ["contains|contain|carries", "nutrients|nutrient"]
-	},
-	{
-		word: "cytoplasm",
-		contents: "contains many stuff",
-		keywords: ["contains|contain|carries", "stuff"]
-	}
-]
-
 class Session {
 	constructor(wordsObj, id) {
 		this.words = wordsObj;

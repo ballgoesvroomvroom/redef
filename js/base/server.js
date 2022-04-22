@@ -987,7 +987,6 @@ app.post("/api/words/upload", authenticate, async (req, res) => {
 	let prevIndentLevel = 0;
 	for (let i = 0; i < parsed.length; i++) {
 		const chapter = parsed[i];
-		console.log("chapter:", chapter)
 
 		if (chapter.indentLevel > prevIndentLevel) {
 			// guaranteed to be higher by one only, else parser should have thrown an error
@@ -1032,8 +1031,6 @@ app.post("/api/words/upload", authenticate, async (req, res) => {
 
 		for (let j = 0; j < chapter.words.length; j++) {
 			let wordObject = chapter.words[j];
-			console.log("adding")
-			console.log(wordObject.contents);
 			pathTo[1][wordObject.word] = [wordObject.contents, ...wordObject.keywords];
 		}
 
@@ -1063,7 +1060,6 @@ app.post("/api/words/compare", authenticate, async (req, res) => {
 	const current = database.getUserField(req.session.username, "words");
 	const content = req.body.contents;
 	const parsed = await parser.Parse(content);
-	console.log("parsed:\n", parsed);
 
 	let returnValue = {
 		"new": [],
@@ -1127,7 +1123,6 @@ app.post("/api/words/compare", authenticate, async (req, res) => {
 		for (let i = 0; i < chapter.words.length; i++) {
 			let wordObject = chapter.words[i];
 			parsedWords.push([wordObject.word, wordObject.contents, wordObject.keywords]);
-			console.log(wordObject.word, wordObject.keywords)
 		}
 
 

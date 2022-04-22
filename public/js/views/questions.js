@@ -2,7 +2,7 @@ import { dispAlert, fetchWordData, fetchTestDataByID, LineFeedToBR } from "./../
 
 const CORRECT_MARGIN = 0.75; // >= 75% to get a correct
 const HTMLSTRIPPER_GENERALCAPTURETAG = /<(\/)?(\w*)[\w\d\(\)\s\/="':\-;.&%]*?>/gm;
-const NEGATE_KEYWORDS_REGEX = /^~/gm;
+const NEGATE_KEYWORDS_REGEX = /^~.+/gm;
 
 const TRACKMATCH = [ // matches the class id for each stat-track-ele element
 	"wrong", "partiallycorrect", "correct"
@@ -180,8 +180,8 @@ function parseTestData(orderedData, contents, wordData, testCache=[]) {
 			// will definitely exists
 			wordcontent = testCache[orderedData[i][0]][orderedData[i][1]]
 		}
-		let keywords = [];
 
+		let keywords = [];
 		// since the 0 index stores the contents of the words, start from 1
 		for (let k = 1; k < wordcontent.length; k++) {
 			keywords.push(wordcontent[k])
@@ -209,19 +209,28 @@ function highlight(contents, keywords) {
 	// insertPos = [[capturedString, startingIndex], ...]; schema
 	let cachedWords = {}; // store encountered keywords with their regex objects here to continue search after their .lastIndex
 	for (let i = 0; i < keywords.length; i++) {
-		let regexObject = cachedWords[keywords[i]];
+		var keyword = keywords[i];
+
+		// determine if keyword is a negate keyword
+		NEGATE_KEYWORDS_REGEX.lastIndex = 0;
+		var isNegate = NEGATE_KEYWORDS_REGEX.test(keyword);
+		if (isNegate) {
+			keyword = keyword.slice(1); // strip the leading '~' which denotes negate keywords; server shouldn't contain empty strings as keywords
+			// NEGATE_KEYWORDS_REGEX should only match when there is content followed by the '~'
+		}
+
+		let regexObject = cachedWords[keyword];
 		if (regexObject == null) {
 			// keyword has no occurrence yet; this is the first occurrence
-			regexObject = new RegExp(`\\b${keywords[i]}\\b`, "gm")
-			cachedWords[keywords[i]] = regexObject
+			regexObject = new RegExp(`\\b${keyword}\\b`, "gmi")
+			cachedWords[keyword] = regexObject
 		} else if (regexObject.lastIndex === 0) {
 			// no more match; .lastIndex got resetted
 			continue;
 		}
 
 		let match = regexObject.exec(contents); // only capture first occurrence of keyword
-		NEGATE_KEYWORDS_REGEX.lastIndex = 0;
-		if (match == null || NEGATE_KEYWORDS_REGEX.test(keywords[i])) {
+		if (match == null || isNegate) {
 			// keyword is a negate keyword, skip one occurrence of keyword in contents to disable by setting .lastIndex (done internally when called regexObject.exec(contents))
 			// so just do nothing
 			continue;
@@ -290,7 +299,7 @@ $(document).ready(function(e) {
 		"submit-button": $("#submit-button")
 	}
 
-	function newComparisonCard(chapter, word, score, givenAnswer, correctAnswer, code) {
+	function newComparisonCard(chapter, word, score, givenAnswer, correctAnswer, correctAnswerKeywords, code) {
 		// code represents the stat-track code
 		// 0 - wrong; 1 - partially correct; 2 - correct
 		const $div = $("<div>", {
@@ -333,7 +342,7 @@ $(document).ready(function(e) {
 		$wordSpan.text(word);
 		$scoreSpan.text(score);
 		$givenAnswerSpan.html(LineFeedToBR(givenAnswer));
-		$correctAnswerSpan.html(LineFeedToBR(correctAnswer));
+		$correctAnswerSpan.html(LineFeedToBR(highlight(correctAnswer, correctAnswerKeywords)));
 
 		$headerSpan.appendTo($chapterheader);
 		$wordSpan.appendTo($wordheader);
@@ -446,6 +455,7 @@ $(document).ready(function(e) {
 			let score = `${this.individual_scores[i][0]}/${this.words[i].keywords.length}`;
 			let givenAnswer = this.inputs[i];
 			let correctAnswer = this.words[i].contents;
+			let correctAnswerKeywords = this.words[i].keywords;
 
 			// code for the stat visuals; 0 - wrong, 1 - partially correct, 2 - correct
 			let code = 0;
@@ -454,7 +464,7 @@ $(document).ready(function(e) {
 				code = this.individual_scores[i][1] ? 2 : 1
 			}
 
-			newComparisonCard(chapter, word, score, givenAnswer, correctAnswer, code)
+			newComparisonCard(chapter, word, score, givenAnswer, correctAnswer, correctAnswerKeywords, code)
 		}
 
 		// make results-container visible
@@ -484,7 +494,7 @@ $(document).ready(function(e) {
 				this.show(false);
 				display(this.words[this.currentPointer].chapterStrRepr, this.words[this.currentPointer].word);
 			} else {
-				// submit own answer get back score
+				// submit own answer to get back score
 				console.log("testing")
 				var success = await this.test(parse_html($selectors["answer-box"].html()))
 				console.log("tested", success)

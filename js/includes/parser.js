@@ -11,12 +11,14 @@ const regexsafeparsemap = {
 	// e.g. keywords match for the entire string
 	[/\$/gm]: "\\$",
 	[/\^/gm]: "\\^",
+	[/\./gm]: "\\.",
 	[/\*/gm]: "\\*",
 	[/\?/gm]: "\\?",
 	[/\(/gm]: "\\(",
 	[/\)/gm]: "\\)",
 	[/\[/gm]: "\\[",
-	[/\]/gm]: "\\]"
+	[/\]/gm]: "\\]",
+	[/\|/gm]: "\||"
 }
 
 class Parser {
@@ -121,7 +123,7 @@ class ChapterObject {
 				this.addContentsAsKeywords();
 			}
 		}
-		const wordObj = new WordObject(word, options);
+		const wordObj = new WordObject(word, this.options);
 
 		this.words.push(wordObj);
 	}
@@ -187,18 +189,21 @@ function Parse(contents, options={enableRegexCapturing: false}) {
 	numnberOfLines = lines.length;
 	for (let lineCount = 0; lineCount < numnberOfLines; lineCount++) {
 		lineContent = lines[lineCount];
+		if (lineContent === "===") {
+			parserObject.commenting = !parserObject.commenting;
+			continue; // move to next line first
+		}
+
+		if (parserObject.commenting) {
+			// dont regard data as anything meaningful; comments
+			continue;
+		}
+
 		if (lineContent.length === 0) {
 			if (!parserObject.isKeywords && !parserObject.isEmpty() && !parserObject.currentChapter.isEmpty()) {
 				// add empty line
 				parserObject.currentChapter.currentWord.addLine("");
 			}
-			continue
-		} else if (lineContent === "===") {
-			parserObject.commenting = !parserObject.commenting
-		}
-
-		if (parserObject.commenting) {
-			// dont regard data as anything meaningful; comments
 			continue;
 		}
 

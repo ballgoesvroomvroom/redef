@@ -222,8 +222,15 @@ function highlight(contents, keywords) {
 
 	let insertPos = []; // store numbers
 	// insertPos = [[capturedString, startingIndex], ...]; schema
+	let cachedWords = {}; // store encountered keywords with their regex objects here to continue search after their .lastIndex
 	for (let i = 0; i < keywords.length; i++) {
-		let match = new RegExp(`\\b${keywords[i]}\\b`, "i").exec(contents); // only capture first occurrence of keyword
+		let regexObject = cachedWords[keywords[i]];
+		if (regexObject == null) {
+			// keyword has no occurrence yet; this is the first occurrence
+			regexObject = new RegExp(`\\b${keywords[i]}\\b`, "gm")
+			cachedWords[keywords[i]] = regexObject
+		}
+		let match = regexObject.exec(contents); // only capture first occurrence of keyword
 		if (match == null) {
 			continue;
 		}
@@ -237,7 +244,8 @@ function highlight(contents, keywords) {
 		let closest = [contents.length +1, -1]; // set highest to the boundary; aka the furthest
 		// closest = [closestDistance, indexOf]
 		for (let i = 0; i < insertPos.length; i++) {
-			if (insertPos[i][1] < closest[0]) {
+			if (insertPos[i][1] < closest[0] && insertPos[i][1] >= currentPointer) {
+				// second condition is to ensure no duplicates
 				closest = [insertPos[i][1], i];
 			}
 		}

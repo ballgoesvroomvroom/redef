@@ -21,6 +21,7 @@ class Parser {
 
 		// states
 		this.isKeywords = false; // will be toggled true when keywords section is reached
+		this.commenting = false; // whether if parser is currently in a comment block
 
 		// keep track of some variables
 		this.prevIndentLevel = 0;
@@ -171,6 +172,13 @@ function Parse(contents) {
 				parserObject.currentChapter.currentWord.addLine("");
 			}
 			continue
+		} else if (lineContent === "===") {
+			parserObject.commenting = !parserObject.commenting
+		}
+
+		if (parserObject.commenting) {
+			// dont regard data as anything meaningful; comments
+			continue;
 		}
 
 		regexObject.header.lastIndex = -1; // reset regex object to ensure everything gets captured

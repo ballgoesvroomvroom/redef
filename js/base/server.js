@@ -657,7 +657,7 @@ app.post("/api/test/submitquestion", authenticate, (req, res) => {
 		if (regex == null) {
 			// first occurrence
 			// wrap each keyword by a word boundary to capture whole words only
-			regex = new RegExp(`\\b${keyword}\\b`, "gm");
+			regex = new RegExp(`\\b${keyword}\\b`, "gmi"); // use 'i' flag since case for givenAnswer is preserved whereas keywords are converted to lowercase by the uploading endpoint
 			keyword_regex_obj[keyword] = regex;
 		} else if (regex.lastIndex == 0) {
 			// .lastIndex got resetted; no more matches found anyways
@@ -667,7 +667,6 @@ app.post("/api/test/submitquestion", authenticate, (req, res) => {
 		if (regex.exec(givenAnswer) != null) {
 			// preserve .lastIndex position internally if theres another match to match double occurring keywords if specified
 			console.log("found something", givenAnswer, keyword)
-			// uses regex; don't need to use 'i' flag for case insensitivity since givenAnswer is converted to lowercase; keywords are always ensured to be in lowercase by parser.js on the server-side
 			score += 1;
 		}
 	}

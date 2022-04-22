@@ -104,7 +104,7 @@ function parse_html(contents) {
 		// or "div" for captured "<div>" tag
 		return closing == null && tagName === "div" ? "\n" : ""; // return a line feed is <div> tag was matched, else strip the html tags
 	})
-	return contents.toLowerCase(); // answers are converted to lowercase
+	return contents; // don't convert to lowercase, preserve case for answers
 }
 
 function parseTestData(orderedData, contents, wordData, testCache=[]) {

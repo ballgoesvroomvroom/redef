@@ -671,8 +671,10 @@ app.post("/api/test/submitquestion", authenticate, (req, res) => {
 		}
 	}
 
-	let isCorrect = score > Math.floor(0.75 *(wordContents.length -1)); // hit 75% of the keywords to consider a correct
-	res.json({"score": score, "isCorrect": isCorrect}); // send data back to client
+	let isCorrect = score > Math.floor(0.75 *(wordContents.length -1)); // hit 75% of the keywords to consider a correct; minus 1 to disregard actual answer stored in wordContents
+	// treats partially correct as wrong when calculating score, but for visual purposes, if score passed 0.5 margin, but not above correct margin, consider it as a partially correct
+	let passed = score >= Math.ceil(0.5 *wordContents.length);
+	res.json({"score": score, "isCorrect": isCorrect, "passed": passed}); // send data back to client
 
 	// log first occurrence of answer into testData
 	// no need to verify pos, since we've already did it with .contents array
@@ -692,7 +694,7 @@ app.post("/api/test/submitquestion", authenticate, (req, res) => {
 		testData.stoppedAt += 1;
 
 		// update .individual_scores array
-		testData.individual_scores.push([score, isCorrect]);
+		testData.individual_scores.push([score, isCorrect, passed]);
 	}
 
 	// change state

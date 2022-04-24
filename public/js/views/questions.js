@@ -73,18 +73,19 @@ class Session {
 
 		let score = data.score;
 		let correct = data.isCorrect;
+		let passed = data.passed;
 
 		this.score += correct; // boolean addition
 
 		this.inputs.push(givenAnswer);
-		this.individual_scores.push([score, correct]);
+		this.individual_scores.push([score, correct, passed]);
 
 		this.update();
 
 		// stat track
 		// 0 for wrong, 1 for partially correct, 2 for correct
 		var code = 0
-		if (score > 0) {
+		if (passed) {
 			code = correct ? 2 : 1
 		}
 		console.log(score, correct, code);
@@ -465,7 +466,7 @@ $(document).ready(function(e) {
 
 			// code for the stat visuals; 0 - wrong, 1 - partially correct, 2 - correct
 			let code = 0;
-			if (this.individual_scores[i][0] > 0) {
+			if (this.individual_scores[i][2]) {
 				// not totally wrong
 				code = this.individual_scores[i][1] ? 2 : 1
 			}
@@ -610,7 +611,7 @@ $(document).ready(function(e) {
 				// stat track
 				// 0 for wrong, 1 for partially correct, 2 for correct
 				var code = 0;
-				if (this.individual_scores[i][0] > 0) {
+				if (this.individual_scores[i][2]) {
 					code = this.individual_scores[i][1] ? 2 : 1;
 				}
 				this.addToTrack(i, code);

@@ -60,7 +60,7 @@ class Repository {
 	}
 
 	async pushContents(res=null) {
-		// use with promise resolve function
+		// use with promise resolve function (callback function)
 		if (this.status == status.ERROR) {
 			console.warn("trying to push contents but repository failed");
 			clearInterval(this.updateIntervalId);

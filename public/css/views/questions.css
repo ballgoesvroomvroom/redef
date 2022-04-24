@@ -271,3 +271,26 @@ mark.highlighter {
 	background-color: var(--answer-textbox-bg);
 	color: #000;
 }
+
+@media only screen and (max-width: 800px) {
+	#results-container {
+		width: calc(100% - 10px);
+		padding: 5px;
+	}
+
+	.resultcard-comparisontable {
+		flex-direction: column;
+	}
+
+	.resultcard-left {
+		border-radius: 5px 5px 0px 0px;
+		border-width: 1px;
+		border-right: solid 1px black;
+		border-bottom: 0;
+	}
+
+	.resultcard-right {
+		border-width: 1px;
+		border-radius: 0px 0px 5px 5px;
+	}
+}

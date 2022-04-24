@@ -99,6 +99,12 @@ button {
 	background: #555;
 }
 
+/* Corner when both axis are scrollable */
+/* https://stackoverflow.com/a/28075981/12031810 */
+::-webkit-scrollbar-corner {
+	background: transparent;
+}
+
 .undraggable {
 	user-drag: none;
 	-webkit-user-drag: none;

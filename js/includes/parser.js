@@ -201,7 +201,7 @@ function Parse(contents, options={enableRegexCapturing: false}) {
 
 		if (lineContent.length === 0) {
 			if (!parserObject.isKeywords && !parserObject.isEmpty() && !parserObject.currentChapter.isEmpty()) {
-				// add empty line
+				// add empty line to current existing word
 				parserObject.currentChapter.currentWord.addLine("");
 			}
 			continue;

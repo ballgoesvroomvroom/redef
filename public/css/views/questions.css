@@ -273,6 +273,15 @@ mark.highlighter {
 }
 
 @media only screen and (max-width: 800px) {
+	#stat-container {
+		width: calc(100% - 40px);
+	}
+
+	#play-area {
+		width: calc(100% - 10px);
+		padding: 5px;
+	}
+
 	#results-container {
 		width: calc(100% - 10px);
 		padding: 5px;

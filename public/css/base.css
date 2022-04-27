@@ -6,6 +6,7 @@
 	position: absolute;
 	width: 100%;
 	height: auto;
+	min-height: 100%;
 	overflow-y: auto;
 	background: var(--defaultbackground);
 	/*background-color: #212121;*/

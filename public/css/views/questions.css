@@ -17,7 +17,8 @@ mark.highlighter {
 	align-items: center;
 	position: absolute;
 	width: 100%;
-	height: 100%;
+	height: auto;
+	min-height: 100%;
 	overflow-y: auto;
 	background-color: var(--primary-color);
 }
@@ -275,6 +276,7 @@ mark.highlighter {
 @media only screen and (max-width: 800px) {
 	#stat-container {
 		width: calc(100% - 40px);
+		padding: 40px 20px;
 	}
 
 	#play-area {

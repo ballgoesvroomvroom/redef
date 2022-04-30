@@ -1166,7 +1166,11 @@ app.post("/api/words/compare", authenticate, async (req, res) => {
 		prevChapter = chapter.header;
 	}
 
-	res.json(returnValue);
+	if (returnValue.old.length === 0 && returnValue.new.length === 0) {
+		res.status(400).json({"error": "no data uploaded"})
+	} else {
+		res.json(returnValue);
+	}
 })
 
 socketApp.use((socket, next) => {

@@ -422,13 +422,8 @@ $(document).ready(() => {
 
 			var filereader = new FileReader();
 			filereader.onload = function() {
-				// empty out card containers
-				$selectors["toadd-section"].empty();
-				$selectors["tomodify-section"].empty();
-
-				$selectors["board-data-dataarea"].removeClass("hidden");
-				
 				// parse contents (filereader.result) here
+				
 				fetch("/api/words/compare", {
 					method: "POST",
 					headers: {
@@ -442,13 +437,29 @@ $(document).ready(() => {
 					if (r.status == 200) {
 						return r.json();
 					} else {
-						throw new Error(r.status);
+						return new Promise((res) => {
+							res(r.json());
+						}).then(d => {
+							return Promise.reject(d);
+						})
 					}
 				}).then(d => {
+					// only show upon success
+					// empty out card containers
+					$selectors["toadd-section"].empty();
+					$selectors["tomodify-section"].empty();
+					$selectors["board-data-dataarea"].removeClass("hidden");
+
 					sessionStorage.setItem(uploadWordData_SSK, JSON.stringify(d)); // storing parsed results so on a page refresh, results will persist
 					sessionStorage.setItem(uploadWordDataRAW_SSK, filereader.result); // will be sent to the server to be parsed again when submitting
 					displayFileUpload(d);
-				}).catch(console.error)
+				}).catch(d => {
+					if (d.error != null) {
+						dispAlert(d.error);
+					} else {
+						dispAlert("Server errored");
+					}
+				})
 			}
 
 			filereader.readAsText(file);
@@ -514,7 +525,7 @@ $(document).ready(() => {
 
 	// upload data frame
 	// read from sessionStorage
-	if (sessionStorage.getItem(uploadWordData_SSK) != null) {
+	if (sessionStorage.getItem(uploadWordData_SSK) != null && sessionStorage.getItem(uploadWordData_SSK) != "undefined") {
 		displayFileUpload(JSON.parse(sessionStorage.getItem(uploadWordData_SSK)));
 	}
 

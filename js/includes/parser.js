@@ -159,6 +159,7 @@ class WordObject {
 				continue;
 			} else if (escapeRegex || !this.options.enableRegexCapturing) {
 				// escape regex assertions
+				// parameter escapeRegex has higher precedence than this.options.enableRegexCapturing for when adding entire contents as keywords
 				keyword = regexSafeParse(keyword.toLowerCase());
 			} else {
 				keyword = keyword.toLowerCase();

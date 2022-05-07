@@ -8,7 +8,7 @@
 	height: auto;
 	min-height: 100%;
 	overflow-y: auto;
-	background: var(--defaultbackground);
+	background-color: var(--defaultbackgroundcolor);
 	/*background-color: #212121;*/
 }
 

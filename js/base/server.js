@@ -32,6 +32,7 @@ const pages = {
 	register: path.join(process.cwd(), "public/html/views/register.html"),
 	questions: path.join(process.cwd(), "public/html/views/questions.html"),
 	create: path.join(process.cwd(), "public/html/views/create.html"),
+	study: path.join(process.cwd(), "public/html/views/study.html"),
 	editdata: path.join(process.cwd(), "public/html/views/edit.html"),
 	"404": path.join(process.cwd(), "public/html/includes/404.html")
 }
@@ -118,7 +119,7 @@ function authenticate(req, res, next) {
 		req.user = payload.user;
 		console.log(req.iat);
 		console.log("authenticated for route:", req.url);
-		return next(); // move on from middle ware
+		next(); // move on from middle ware
 	})
 }
 
@@ -177,6 +178,11 @@ app.get("/edit", authenticate, (req, res) => {
 app.get("/create", authenticate, (req, res) => {
 	res.type("html");
 	res.sendFile(pages.create);
+})
+
+app.get("/study", authenticate, (req, res) => {
+	res.type("html");
+	res.sendFile(pages.study)
 })
 
 app.get("/test/g/:id", authenticate, (req, res) => {

@@ -162,8 +162,6 @@ class WordObject {
 		// e.g. "xx, yy, zz, abc"
 		// parse keyword to make them regex friendly; escape reserved characters such as $ etc
 		let keywords = keywordString.split(regexObject.keyword_delimiter);
-		console.log("adding keywords by line")
-		console.log(keywords);
 		for (let i = 0; i < keywords.length; i++) {
 			var keyword = keywords[i];
 			if (keyword.length === 0) {

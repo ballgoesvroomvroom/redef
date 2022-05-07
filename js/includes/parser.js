@@ -6,19 +6,28 @@ class regexObject {
 	static headerIndent = /^-+ ?/g;
 }
 
-const regexsafeparsemap = {
-	// a mapping of replace characters to ensure string doesnt contain any triggering insertions when performing regex to match for stuff
-	// e.g. keywords match for the entire string
-	[/\$/gm]: "\\$",
-	[/\^/gm]: "\\^",
-	[/\./gm]: "\\.",
-	[/\*/gm]: "\\*",
-	[/\?/gm]: "\\?",
-	[/\(/gm]: "\\(",
-	[/\)/gm]: "\\)",
-	[/\[/gm]: "\\[",
-	[/\]/gm]: "\\]",
-	[/\|/gm]: "\||"
+class RegexEscape {
+	static regexmap = {
+		// a map of regex assertions to escape
+		// e.g. used for when keywords match for the entire string (no keyword declaration, hence entire content is being used as keyword)
+		"$": "\\$",
+		"^": "\\^",
+		".": "\\.",
+		"*": "\\*",
+		"?": "\\?",
+		"(": "\\(",
+		")": "\\)",
+		"[": "\\[",
+		"]": "\\]",
+		"|": "\\|"
+	}
+
+	static escape(s) {
+		for (const r in RegexEscape.regexmap) {
+			s = s.replace(new RegExp(`\\${r}`, "gm"), RegexEscape.regexmap[r]);
+		}
+		return s;
+	}
 }
 
 class Parser {
@@ -70,6 +79,8 @@ class Parser {
 		return this.contents.length == 0;
 	}
 
+	regexSafeParse
+
 	static getChapterIndent(chapterString) {
 		// determines indent level for chapterString
 		// returns a number, the amount of indent
@@ -105,6 +116,7 @@ class ChapterObject {
 	}
 
 	addContentsAsKeywords() {
+		// run after validating presence of this.currentWord
 		// for no keywords declaration; use current word's contents as current word's keywords (wholesale)
 		let parsed = this.currentWord.contents;
 		parsed = parsed.replace(/\r?\n/gm, " ").replace(/,/gm, "\\,"); // strip linefeeds with a single whitespace character, escape delimiters too
@@ -150,6 +162,8 @@ class WordObject {
 		// e.g. "xx, yy, zz, abc"
 		// parse keyword to make them regex friendly; escape reserved characters such as $ etc
 		let keywords = keywordString.split(regexObject.keyword_delimiter);
+		console.log("adding keywords by line")
+		console.log(keywords);
 		for (let i = 0; i < keywords.length; i++) {
 			var keyword = keywords[i];
 			if (keyword.length === 0) {
@@ -158,22 +172,13 @@ class WordObject {
 			} else if (escapeRegex || !this.options.enableRegexCapturing) {
 				// escape regex assertions
 				// parameter escapeRegex has higher precedence than this.options.enableRegexCapturing for when adding entire contents as keywords
-				keyword = regexSafeParse(keyword.toLowerCase());
+				keyword = RegexEscape.escape(keyword.toLowerCase());
 			} else {
 				keyword = keyword.toLowerCase();
 			}
 			this.keywords.push(keyword); // convert all of the keywords to lowercase
 		}
 	}
-}
-
-function regexSafeParse(s) {
-	// escapes special characters; such as $
-	for (const r in regexsafeparsemap) {
-		s = s.replaceAll(r, regexsafeparsemap[r]);
-	}
-
-	return s;
 }
 
 function Parse(contents, options={enableRegexCapturing: false}) {
@@ -258,6 +263,14 @@ function Parse(contents, options={enableRegexCapturing: false}) {
 		} else {
 			// normal text; add it to definitions area
 			parserObject.currentChapter.currentWord.addLine(lineContent);
+		}
+	}
+
+	// check to see if last word has any keywords added
+	if (!parserObject.isEmpty() && !parserObject.currentChapter.isEmpty()) {
+		if (parserObject.currentChapter.currentWord.keywords.length === 0) {
+			// has chapter and word but last word does not have any keywords
+			parserObject.currentChapter.addContentsAsKeywords();
 		}
 	}
 

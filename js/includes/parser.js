@@ -1,7 +1,7 @@
 class regexObject {
 	static header = /(?!^\[).+(?=\]\s*$)/g;
 	static keyword = /^[Kk]eywords?:\s?/g;
-	static keyword_delimiter = /(?<!\\), ?/g;
+	static keyword_delimiter = /(?<!\\), */g;
 	static word = /(?<=^!).+(?=:\s*$)/g;
 	static headerIndent = /^-+ ?/g;
 }

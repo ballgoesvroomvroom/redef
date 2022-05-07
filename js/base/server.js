@@ -301,6 +301,7 @@ app.post("/api/register", (req, res) => {
 				preferences: {
 					wordsCaseSens: false,
 					chaptersCaseSens: false,
+					enableRegexCapturing: true,
 					randomOrder: false
 				}
 			}

@@ -21,7 +21,7 @@ const serverDatabase = new DatabaseInstance(path.join(process.cwd(), "database/s
 
 // database.autosave = -1; // disable autosave
 
-const PORT = 5000;
+const PORT = 5001;
 const app = express();
 const httpServer = http.createServer(app);
 const socketApp = io(httpServer);
@@ -543,13 +543,11 @@ app.post("/api/test/create", authenticate, (req, res) => {
 
 			// re-arrange data
 			var diff = data.length; // no need to minus 1 since Math.random() will never return 1, and result is always floored
-			console.log("bef:", data);
 			for (let j = 0; j < Math.floor(data.length /2); j++) {
 				// swap .length /2 times (floored)
 				var targetIndex = Math.floor(Math.random() *diff);
 				data[j], data[targetIndex] = data[targetIndex], data[j];
 			}
-			console.log(data);
 
 			// push it into testData
 			testData.data = data;
@@ -586,7 +584,6 @@ app.post("/api/test/submitquestion", authenticate, (req, res) => {
 	// returns score; based on amount of keywords
 	// keywordsHit out of keywords.length
 	let testID = req.body.testid;
-	console.log("typeof testID:", typeof testID)
 	let wordIndex = req.body.index; // index within testData.data
 	let givenAnswer = req.body.givenAnswer;
 
@@ -627,7 +624,6 @@ app.post("/api/test/submitquestion", authenticate, (req, res) => {
 	chapterPath = chapterPath[0]; // 0 index stores the chapter data
 
 	let word = testData.contents[pos[0]][pos[1] +1]; // offset +1 since client side decremented it by 1 to accommodate for the chapter data (index 0)
-	console.log("word:", word);
 	if (word == null || typeof word === "object") {
 		// pos[1] = -1; invalid
 		return res.status(400).json({"error": "failed to reference word within chapter with pos[1]: " +pos[1].toString()});
@@ -650,7 +646,6 @@ app.post("/api/test/submitquestion", authenticate, (req, res) => {
 	// do the actual matching and scoring
 	let score = 0;
 	let keyword_regex_obj = {}; // store regex objects corresponding to keywords
-	console.log(wordContents);
 	for (let i = 1; i < wordContents.length; i++) {
 		var keyword = wordContents[i];
 		var regex = keyword_regex_obj[keyword];
@@ -666,7 +661,6 @@ app.post("/api/test/submitquestion", authenticate, (req, res) => {
 
 		if (regex.exec(givenAnswer) != null) {
 			// preserve .lastIndex position internally if theres another match to match double occurring keywords if specified
-			console.log("found something", givenAnswer, keyword)
 			score += 1;
 		}
 	}
@@ -674,7 +668,6 @@ app.post("/api/test/submitquestion", authenticate, (req, res) => {
 	let isCorrect = score > Math.floor(0.75 *(wordContents.length -1)); // hit 75% of the keywords to consider a correct; minus 1 to disregard actual answer stored in wordContents
 	// treats partially correct as wrong when calculating score, but for visual purposes, if score passed 0.5 margin, but not above correct margin, consider it as a partially correct
 	let passed = score >= Math.ceil(0.5 *wordContents.length);
-	res.json({"score": score, "isCorrect": isCorrect, "passed": passed}); // send data back to client
 
 	// log first occurrence of answer into testData
 	// no need to verify pos, since we've already did it with .contents array
@@ -682,7 +675,6 @@ app.post("/api/test/submitquestion", authenticate, (req, res) => {
 		// test has been done
 		return;
 	}
-	console.log("logging", testData.uanswers[wordIndex].length)
 	if (testData.uanswers[wordIndex].length === 0) { // no need to offset +1 to pos[1] this time since no chapter data is stored in .uanswers
 		// empty string; no answers given yet
 		testData.uanswers[wordIndex] = givenAnswer;

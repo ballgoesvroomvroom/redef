@@ -41,7 +41,6 @@ class Parser {
 	}
 
 	createNewChapter(chapter, indentLevel) {
-		console.log(chapter, indentLevel, this.prevIndentLevel)
 		if (indentLevel > this.prevIndentLevel && indentLevel -this.prevIndentLevel > 1) {
 			// missing nested chapter; chapter indentation increased by more than 1
 			throw new Error("sudden increase in indentLevel for chapter: " +chapter);
@@ -144,7 +143,6 @@ class WordObject {
 		}
 
 		this.contents += lineContents;
-		console.log("this.contents:", this.contents)
 	}
 
 	addKeywordsByLine(keywordString, escapeRegex=false) {

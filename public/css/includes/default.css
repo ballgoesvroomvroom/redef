@@ -69,6 +69,7 @@ button {
 	--tertiary-color: #454545;
 	--accent-color: #686385;
 	--accent-color-2: #5171c2;
+	--accent-color-3: #fdfff7; /* bright pale yellowish, textcontainers for displaying contents of word */
 	--gradientbackground: linear-gradient(#171717, #303030);
 	--defaultbackgroundcolor: #212121;
 

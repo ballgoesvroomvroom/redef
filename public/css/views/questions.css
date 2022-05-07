@@ -1,6 +1,4 @@
 :root {
-	--answer-textbox-bg: #fdfff7;
-
 	--correct-text-color: #8dd669;
 	--partially-correct-text-color: #e6c45e;
 	--wrong-text-color: #e65e5e;
@@ -269,7 +267,7 @@ mark.highlighter {
 	border-style: solid;
 	border-width: 2px;
 	border-color: black;
-	background-color: var(--answer-textbox-bg);
+	background-color: var(--accent-color-3);
 	color: #000;
 }
 

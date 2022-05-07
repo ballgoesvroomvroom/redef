@@ -300,7 +300,8 @@ app.post("/api/register", (req, res) => {
 				},
 				preferences: {
 					wordsCaseSens: false,
-					chaptersCaseSens: false
+					chaptersCaseSens: false,
+					randomOrder: false
 				}
 			}
 			var success = database.createField(username, userData);
@@ -427,6 +428,7 @@ app.get("/api/test/get", authenticate, (req, res) => {
 app.post("/api/test/create", authenticate, (req, res) => {
 	const current = database.getUserField(req.session.username, "tests");
 	const metadata = database.getUserField(req.session.username, "metadata");
+	const preferences = database.getUserField(req.session.username, "preferences")
 
 	let id = metadata.testsCreated;
 	try {
@@ -542,11 +544,13 @@ app.post("/api/test/create", authenticate, (req, res) => {
 			}
 
 			// re-arrange data
-			var diff = data.length; // no need to minus 1 since Math.random() will never return 1, and result is always floored
-			for (let j = 0; j < Math.floor(data.length /2); j++) {
-				// swap .length /2 times (floored)
-				var targetIndex = Math.floor(Math.random() *diff);
-				data[j], data[targetIndex] = data[targetIndex], data[j];
+			if (preferences.randomOrder) {
+				var diff = data.length; // no need to minus 1 since Math.random() will never return 1, and result is always floored
+				for (let j = 0; j < Math.floor(data.length /2); j++) {
+					// swap .length /2 times (floored)
+					var targetIndex = Math.floor(Math.random() *diff);
+					[data[j], data[targetIndex]] = [data[targetIndex], data[j]]; // using destructing assignment; https://stackoverflow.com/a/872317/12031810
+				}
 			}
 
 			// push it into testData

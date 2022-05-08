@@ -46,7 +46,12 @@ class Session {
 			})
 		}).then(r => {
 			if (r.status != 200) {
-				throw new Error("failed to submit");
+				// server should return payload with .error stating the error that had occurred
+				return new Promise(res => {
+					res(r.json())
+				}).then(d => {
+					throw new Error(d.error);
+				});
 			} else {
 				return r.json();
 			}

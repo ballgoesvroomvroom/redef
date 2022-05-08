@@ -140,7 +140,7 @@ mark.highlighter {
 	height: calc(100% - 16px);
 	border-radius: 5px;
 	padding: 8px;
-	background-color: var(--answer-textbox-bg);
+	background-color: var(--accent-color-3);
 	color: #000;
 }
 

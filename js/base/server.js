@@ -392,7 +392,7 @@ function findTestFromID(username, id) {
 }
 
 function getWordContents(username, chapterPath, word) {
-	// chapterPath: []; ["chapter 1", "sub chapter"]
+	// chapterPath: string[]; ["chapter 1", "sub chapter"]
 	// word: string: "word1"
 	// will return null/undefined if chapterPath or word is invalid/doesn't exist
 	if (chapterPath.length === 0) {
@@ -684,8 +684,11 @@ app.post("/api/test/submitquestion", authenticate, (req, res) => {
 	// no need to verify pos, since we've already did it with .contents array
 	if (testData.state == 2) {
 		// test has been done
+		res.status(400).json({"error": "test already completed"});
 		return;
 	}
+
+	// check if there is an existing entry; don't store input if there is an existing entry (empty entries are "" empty strings)
 	if (testData.uanswers[wordIndex].length === 0) { // no need to offset +1 to pos[1] this time since no chapter data is stored in .uanswers
 		// empty string; no answers given yet
 		testData.uanswers[wordIndex] = givenAnswer;
@@ -698,6 +701,11 @@ app.post("/api/test/submitquestion", authenticate, (req, res) => {
 
 		// update .individual_scores array
 		testData.individual_scores.push([score, isCorrect, passed]);
+
+		res.json({"score": score, "isCorrect": isCorrect, "passed": passed}); // send data back to client
+	} else {
+		// send error 400 to client
+		res.status(400).json({"error": "question already completed"});
 	}
 
 	// change state

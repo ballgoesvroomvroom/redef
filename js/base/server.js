@@ -185,6 +185,13 @@ app.get("/study", authenticate, (req, res) => {
 	res.sendFile(pages.study)
 })
 
+app.get("/randomise", authenticate, (req, res) => {
+	const p = database.getUserField(req.session.username, "preferences");
+	p.randomOrder = !p.randomOrder;
+	res.type("text");
+	res.send("Randomise turned " +(p.randomOrder).toString());
+})
+
 app.get("/test/g/:id", authenticate, (req, res) => {
 	// fetch globally shared test
 	return res.status(501).send("endpoint is still work in progress"); // yet to implement

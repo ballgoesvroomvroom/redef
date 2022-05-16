@@ -5,6 +5,11 @@ const HIGHLIGHTER = [ // different kinds of higherlighter
 	["<mark class='highlighter'>", "</mark>"]
 ]
 
+const BG_COLORS = [
+	"#6e4d4d", "#54746d", "#3b465e", "#5e537a"
+]
+let currentColorIndex = -1; // will increment 1 when initialising (first use)
+
 // helper function
 function highlight(contents, keywords) {
 	// wrap keywords in contents with mark tags to highlight them
@@ -86,6 +91,15 @@ function highlight(contents, keywords) {
 	return tagged;
 }
 
+function getNextColor() {
+	// pick the next color in BG_COLORS; uses currentColorIndex
+	if (++currentColorIndex >= BG_COLORS.length) {
+		currentColorIndex = 0;
+	}
+
+	return BG_COLORS[currentColorIndex]
+}
+
 $(document).ready(function() {
 	const $selectors = {
 		"layout": $(".chapter-layout")
@@ -105,11 +119,11 @@ $(document).ready(function() {
 		var oneSpan = 30; // one span takes up 30 pixels (rough estimate of lineHeight +fontSize); doesn't matter, all elements span relative to this
 		for (let i = 0; i < elements.length; i++) {
 			var h = parseInt(window.getComputedStyle(elements[i].firstElementChild).height);
-			elements[i].style.gridRowEnd = "span " +(Math.ceil(h /oneSpan));
+			// elements[i].style.gridRowEnd = "span " +(Math.ceil(h /oneSpan));
 		}
 	}
 
-	function newHeader(chapterPath) {
+	function newHeader(chapterPath, bgColor) {
 		// writes a new header representing the chapter path
 		const $div = $("<div>", {
 			"class": "chapter-header"
@@ -120,10 +134,11 @@ $(document).ready(function() {
 		$p.text(chapterPath);
 		$p.appendTo($div);
 
+		$div.css("color", bgColor);
 		$div.appendTo($selectors["layout"]);
 	}
 
-	function newWord(word, content, keyword) {
+	function newWord(word, content, keyword, bgColor) {
 		const $div = $("<div>", {
 			"class": "chapter-content"
 		});
@@ -148,19 +163,20 @@ $(document).ready(function() {
 		$wordEle.appendTo($container);
 		$keywordEle.appendTo($container);
 
-		$container.appendTo($div)
+		$container.css("background-color", bgColor)
+		$container.appendTo($div);
 
 		$div.appendTo($selectors["layout"]);
 	}
 
-	function readChapter(chapterName, chapterData, path="") {
+	function readChapter(chapterName, chapterData, bgColor, path="") {
 		if (path.length === 0) {
 			// uppermost chapter, no indents
 			path = `[${chapterName}]`;
 		} else {
 			path += ` [${chapterName}]`;
 		}
-		newHeader(path);
+		newHeader(path, bgColor);
 
 		// takes in a block of chapterData and re-run recursively till there are no more nested chapters
 		var wordData = chapterData[1];
@@ -171,12 +187,12 @@ $(document).ready(function() {
 			}
 
 			// index 0 is the content
-			newWord(word, highlight(wordData[word][0], keywords), keywords.join(", "));
+			newWord(word, highlight(wordData[word][0], keywords), keywords.join(", "), bgColor);
 		}
 
 		// parse descendant chapters if any
 		for (let subChapter in chapterData[0]) {
-			readChapter(subChapter, chapterData[0][subChapter], path);
+			readChapter(subChapter, chapterData[0][subChapter], getNextColor(), path);
 		}
 	}
 
@@ -184,9 +200,14 @@ $(document).ready(function() {
 		var dIsEmpty = true;
 
 		// populate list
+		let i = 0;
 		for (let chapter in d) {
 			dIsEmpty = false;
-			readChapter(chapter, d[chapter]);
+
+			// select color for current chapter
+			var chapterColor = getNextColor();
+
+			readChapter(chapter, d[chapter], chapterColor);
 		}
 
 		masonryGridPopulated = !dIsEmpty;

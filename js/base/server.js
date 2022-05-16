@@ -426,6 +426,60 @@ function getWordContents(username, chapterPath, word) {
 	return currentPath[1][word];
 }
 
+app.post("/api/create-presets", authenticate, (req, res) => {
+	// validate input
+	try {
+		const contents = req.body.contents;
+		if (contents == null) {
+			throw new Error();
+		}
+
+		let name = contents.title;
+		let data = contents.data;
+		if (title == null) {
+			throw new Error();
+		} else if (data == null) {
+			throw new Error();
+		} else if (data.length === 0) {
+			throw new Error();
+		}
+
+		// validate format
+		for (let i = 0; i < data.length; i++) {
+			if (typeof data[i] != "object") {
+				throw new Error();
+			} else if (typeof data[i][0] != "object") {
+				// index of each element of contents should store chapter path hence should be arrays only
+				throw new Error();
+			} else {
+				for (let j = 0; j < data[i][0].length; j++) {
+					// validate contents within chapter path array, should be string only
+					if (typeof data[0][j] != "string") {
+						throw new Error();
+					}
+				}
+
+				for (let k = 1; i < data[i].length; k++) {
+					// words must be strings only
+					if (typeof data[i][k] != "string") {
+						throw new Error();
+					}
+				}
+			}
+		}
+
+		// format validated
+		// don't check for whether if chapter exists of words etc, validated by /api/test/create when using preset itself
+		const presets = database.getUserField(req.session.username, "presets");
+		presets[name] = data;
+		return res.status(200).json({"success": "true"});
+	} catch (err) {
+		console.error(err);
+		res.statusMessage = "malformedinput"
+		return res.status(400).json({"error": "malformed input"});
+	}
+})
+
 app.get("/api/test/get", authenticate, (req, res) => {
 	// get the latest tests of size n; (denoted by ?size query)
 	let size = req.query.size != null ? req.query.size : 7 // default is 7
@@ -594,7 +648,7 @@ app.post("/api/test/create", authenticate, (req, res) => {
 			testHistory.shift();
 		}
 		database.getUserField(req.session.username, "metadata").testsLastUpdated += 1;
-	} catch(err) {
+	} catch (err) {
 		console.error(err);
 		res.statusMessage = "malformedinput"
 		return res.status(400).json({"error": "malformed input"});

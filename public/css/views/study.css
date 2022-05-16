@@ -21,6 +21,7 @@ mark.highlighter {
 	height: auto;
 
 	padding: 5px;
+	overflow-y: auto;
 	line-height: 1.2;
 }
 
@@ -30,17 +31,15 @@ mark.highlighter {
 	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 	grid-column-gap: 8px;
 	grid-row-gap: 20px;
+	overflow-y: auto;
 }
 
 .chapter-header {
 	padding-bottom: 15px;
-	font-size: 1.6em;
-
-	color: #9c9c9c;
+	font-size: 2.3em;
 }
 
 .chapter-content-container {
-	max-height: 50vw;
 	padding: 5px;
 
 }

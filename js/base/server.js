@@ -32,6 +32,7 @@ const pages = {
 	register: path.join(process.cwd(), "public/html/views/register.html"),
 	questions: path.join(process.cwd(), "public/html/views/questions.html"),
 	create: path.join(process.cwd(), "public/html/views/create.html"),
+	presets_create: path.join(process.cwd(), "public/html/views/presets_create.html"),
 	study: path.join(process.cwd(), "public/html/views/study.html"),
 	editdata: path.join(process.cwd(), "public/html/views/edit.html"),
 	"404": path.join(process.cwd(), "public/html/includes/404.html")
@@ -178,6 +179,11 @@ app.get("/edit", authenticate, (req, res) => {
 app.get("/create", authenticate, (req, res) => {
 	res.type("html");
 	res.sendFile(pages.create);
+})
+
+app.get("/presets/create", authenticate, (req, res) => {
+	res.type("html");
+	res.sendFile(pages.presets_create);
 })
 
 app.get("/study", authenticate, (req, res) => {
@@ -426,7 +432,7 @@ function getWordContents(username, chapterPath, word) {
 	return currentPath[1][word];
 }
 
-app.post("/api/create-presets", authenticate, (req, res) => {
+app.post("/api/presets-create", authenticate, (req, res) => {
 	// validate input
 	try {
 		const contents = req.body.contents;
@@ -436,7 +442,7 @@ app.post("/api/create-presets", authenticate, (req, res) => {
 
 		let name = contents.title;
 		let data = contents.data;
-		if (title == null) {
+		if (name == null) {
 			throw new Error();
 		} else if (data == null) {
 			throw new Error();
@@ -445,6 +451,7 @@ app.post("/api/create-presets", authenticate, (req, res) => {
 		}
 
 		// validate format
+		// data = [[["chapter 1", "sub chapter"], "word1", "word2"], [["chapter 2", "sub chapter"], "word1", "word2"]]
 		for (let i = 0; i < data.length; i++) {
 			if (typeof data[i] != "object") {
 				throw new Error();
@@ -454,12 +461,12 @@ app.post("/api/create-presets", authenticate, (req, res) => {
 			} else {
 				for (let j = 0; j < data[i][0].length; j++) {
 					// validate contents within chapter path array, should be string only
-					if (typeof data[0][j] != "string") {
+					if (typeof data[i][0][j] != "string") {
 						throw new Error();
 					}
 				}
 
-				for (let k = 1; i < data[i].length; k++) {
+				for (let k = 1; k < data[i].length; k++) {
 					// words must be strings only
 					if (typeof data[i][k] != "string") {
 						throw new Error();

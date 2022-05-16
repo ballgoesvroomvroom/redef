@@ -306,6 +306,7 @@ app.post("/api/register", (req, res) => {
 				password: password,
 				tests: [],
 				words: {},
+				presets: [],
 				metadata: {
 					wordsLastUpdated: 1,
 					testsLastUpdated: 1,
@@ -339,7 +340,11 @@ app.get("/api/words", authenticate, (req, res) => {
 	res.json(database.getUserField(req.session.username, "words"));
 })
 
-app.get("/api/metadata/", authenticate, (req, res) => {
+app.get("/api/presets", authenticate, (req, res) => {
+	res.json(database.getUserField(req.session.username, "metadata"));
+})
+
+app.get("/api/metadata", authenticate, (req, res) => {
 	res.json(database.getUserField(req.session.username, "metadata"));
 })
 

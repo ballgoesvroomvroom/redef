@@ -238,11 +238,31 @@ function fetchWordData() {
 	});
 }
 
+function fetchPresetData() {
+	// get presets data
+	return fetch("/api/presets", {
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		credentials: "same-origin"
+	}).then(r => {
+		if (r.status != 200) {
+			console.log("error")
+			return Promise.reject(`server returned ${r.status}`); // will be handled externally by scope that called it
+		} else {
+			return r.json();
+		}
+	}).then(d => {
+		console.log("GATE D");
+	})
+}
+
 function LineFeedToBR(s) {
 	// returns line feeds in s, replaces it with "<br>"
 	return s.replaceAll(regex_linefeed, "<br>");
 }
 
 export {
-	dispAlert, fetchTestData, fetchWordData, fetchTestDataByID, LineFeedToBR
+	dispAlert, fetchTestData, fetchWordData, fetchTestDataByID, fetchPresetData, LineFeedToBR
 }

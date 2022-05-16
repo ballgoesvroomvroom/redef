@@ -545,13 +545,18 @@ app.post("/api/test/create", authenticate, (req, res) => {
 			let d = contents[i];
 
 			// validate if word exists
-			let path; // store data retrieved from individual paths in words dictionary
-			for (let j = 0; j < d[0].length; j++) {
+			let path = words[d[0][0]]; // store data retrieved from individual paths in words dictionary
+			for (let j = 1; j < d[0].length; j++) {
 				if (path == null) {
-					path = words[d[0][j]];
+					// chapter don't exist; invalidate this and move on to next chapter
+					break
 				} else {
 					path = path[0][d[0][j]];
 				}
+			}
+			if (path == null) {
+				// path was not found; invalidate this and move on to next chapter
+				continue;
 			}
 
 			let chapterWords = path[1];

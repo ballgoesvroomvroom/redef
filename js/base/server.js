@@ -312,7 +312,7 @@ app.post("/api/register", (req, res) => {
 				password: password,
 				tests: [],
 				words: {},
-				presets: [],
+				presets: {},
 				metadata: {
 					wordsLastUpdated: 1,
 					testsLastUpdated: 1,
@@ -347,7 +347,7 @@ app.get("/api/words", authenticate, (req, res) => {
 })
 
 app.get("/api/presets", authenticate, (req, res) => {
-	res.json(database.getUserField(req.session.username, "metadata"));
+	res.json(database.getUserField(req.session.username, "presets"));
 })
 
 app.get("/api/metadata", authenticate, (req, res) => {
@@ -477,8 +477,10 @@ app.post("/api/presets-create", authenticate, (req, res) => {
 
 		// format validated
 		// don't check for whether if chapter exists of words etc, validated by /api/test/create when using preset itself
+		console.log(data);
 		const presets = database.getUserField(req.session.username, "presets");
 		presets[name] = data;
+
 		return res.status(200).json({"success": "true"});
 	} catch (err) {
 		console.error(err);

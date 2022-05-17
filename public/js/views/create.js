@@ -1,4 +1,4 @@
-import { dispAlert, fetchWordData } from "./../includes/default.js";
+import { dispAlert, fetchWordData, fetchPresetData } from "./../includes/default.js";
 const SELECTED = []
 
 
@@ -61,10 +61,9 @@ function parseWords(wordJson) {
 
 $(document).ready(function(e) {
 	const $chapterContentsFrame = $("#chapter-contents-frame");
+	const $presetsContentsFrame = $("#presets-contents-frame")
 
-	function newChapterCard(data) {
-		// data: []; [["chapter 1", "sub chapter"], "word1", "word2"]
-		// same schematics as what parseWords() returns (the elements of the returned array)
+	function buildBase() {
 		const $div = $("<div>", {
 			"class": "chapter-card"
 		});
@@ -77,9 +76,6 @@ $(document).ready(function(e) {
 		const $right = $("<div>", {
 			"class": "chapter-card-rightsection"
 		});
-		const $checkbox = $("<button>", {
-			"class": "chapter-card-checkbox"
-		});
 		const $back = $("<div>", {
 			"class": "chapter-card-back"
 		});
@@ -91,7 +87,6 @@ $(document).ready(function(e) {
 
 		// front
 		$header.appendTo($front); // append header to front container, same parent as right side container
-		$checkbox.appendTo($right); // append check box to right side container
 		$right.appendTo($front); // append right side to front container
 
 		$front.appendTo($div); // append front container to main div
@@ -102,6 +97,62 @@ $(document).ready(function(e) {
 		$details.appendTo($back); // append details tag to back container
 
 		$back.appendTo($div); // append back container to main div
+
+		return [$div, $header, $contentContainer, $right];
+	}
+
+	function newPresetCard(title, data) {
+		// data: []; [[["chapter 1", "sub chapter"], "word1", "word2"], [["chapter 2", "sub chapter"], "word1", "word2"]]
+		// same schematics as what parseWords() returns (the elements of the returned array)
+
+		const [$div, $header, $contentContainer, $right] = buildBase();
+		const $createButton = $("<button>", {
+			"class": "chapter-card-createbutton"
+		})
+		$createButton.text("[ CREATE ]");
+		$createButton.appendTo($right);
+
+		for (let i = 0; i < data.length; i++) {
+			const e = data[i];
+
+			let chapterPath = e[0];
+			const $miniheader = $("<div>", {
+				"class": "details-content-miniheader"
+			});
+			$miniheader.text("[" +chapterPath.join("] [") +"]");
+
+			const $minicontainer = $("<div>", {
+				"class": "details-content-minicontainer"
+			});
+
+			// iterate through each word
+			for (let j = 1; j < e.length; j++) {
+				const $li = $("<li>")
+				$li.text(e[j]);
+
+				$li.appendTo($minicontainer);
+			}
+
+			// set parents
+			$miniheader.appendTo($contentContainer);
+			$minicontainer.appendTo($contentContainer);
+		}
+
+		$header.text(title); // set header's contents
+
+		$div.appendTo($presetsContentsFrame); // parent created main div to DOM
+		return $createButton;
+	}
+
+	function newChapterCard(data) {
+		// data: []; [["chapter 1", "sub chapter"], "word1", "word2"]
+		// same schematics as what parseWords() returns (the elements of the returned array)
+
+		const [$div, $header, $contentContainer, $right] = buildBase();
+		const $checkbox = $("<button>", {
+			"class": "chapter-card-checkbox"
+		});
+		$checkbox.appendTo($right);
 
 		let wordCheckboxes = {}; // store the checkbox (value) for the word (key) here
 		// start at 1; index 0 is for the chapter headers
@@ -125,6 +176,7 @@ $(document).ready(function(e) {
 			// add into DOM
 			$ele.appendTo($contentContainer);
 		}
+
 		$header.text("[" +data[0].join("] [") +"]"); // set header's contents
 
 		$div.appendTo($chapterContentsFrame); // parent created main div to DOM
@@ -276,6 +328,112 @@ $(document).ready(function(e) {
 		}
 	});
 
+	fetchPresetData().then(r => {
+		console.log(r);
+		// r: []; [[["chapter 1", "sub chapter"], "word1", "word2"]]
+
+		fetchWordData().then(wd => {
+			// find empty chapterData (representing to select everything in the current chapter) and fill it with the current words
+			// create visual card at the same time
+			for (let presetName in r) {
+				console.log(presetName);
+				let built = []; // store built preset data here
+
+				for (let i = 0; i < r[presetName].length; i++) {
+					var chapterD = r[presetName][i];
+					var chapterPath = chapterD[0];
+
+					// find path
+					var path = wd[chapterPath[0]];
+					for (let j = 1; j < chapterPath.length; j++) {
+						if (path == null) {
+							// no path exists, (remove this from preset)
+							break;
+						} else {
+							path = path[0][chapterPath[j]];
+						}
+					}
+
+					if (path == null) {
+						// path not found, remove chapter entry from this preset
+						// by not adding it to the built preset list
+						continue;
+					} else {
+						path = path[1];
+					}
+
+					// add words
+					let final = []
+					if (chapterD.length === 1) {
+						// no words declaration (add all current words in chapter into preset)
+						// only declared keyword
+						for (let word in path) {
+							final.push(word);
+						}
+					} else {
+						// start from 1; index 0 is chapterPath []
+						for (let k = 1; k < chapterD.length; k++) {
+							if (path[chapterD[k]] != null) {
+								// validate if word exists (word is referenced as chapterD[k])
+								// do nothing otherwise
+								console.log(chapterD[k])
+								final.push(chapterD[k]);
+							}
+						}
+					}
+
+					console.log(final)
+
+					if (final.length > 0) {
+						// some words were added;
+						// add in chapterPath at the very front
+						final.unshift(chapterPath);
+
+						built.push(final); // add it to big array (preset data)
+					}
+				}
+
+				if (built.length > 0) {
+					// some validated chapters were added in preset
+					console.log("built: ", built)
+					const $createButton = newPresetCard(presetName, built);
+
+					$createButton.on("click", e => {
+						fetch("/api/test/create", {
+							method: "POST",
+							headers: {
+								"Content-Type": "application/json"
+							},
+							credentials: "same-origin",
+							body: JSON.stringify({
+								contents: built
+							})
+						}).then(r => {
+							if (r.status == 401) {
+								throw new Error("Session expired; please refresh!");
+							} else if (r.status == 400) {
+								throw new Error("Server returned 400; try refreshing!");
+							}
+							return r.json();
+						}).then(r => {
+							// returns the test id
+							// use .replace so back button will not go back to this page
+							window.location.replace(`/test/l/${r.id}`);
+						}).catch(err => {
+							console.log(err.toString());
+							dispAlert(err.toString());
+						})
+					})
+				}
+			}
+		})
+	})
+
+	$("#board-screen-newtest").on("click", e => {
+		// redirect user to create page
+		window.location.href = "/presets/create";
+	})
+
 	let createButtonClicked = false;
 	$("#board-createbutton").on("click", (e) => {
 		// create new tests
@@ -291,6 +449,8 @@ $(document).ready(function(e) {
 		if (chapterCheckboxMapping.length === 0) {
 			// no mappings were added yet
 			console.log("chapterCheckboxMapping.length === 0: true");
+			dispAlert("Nothing selected");
+			createButtonClicked = false;
 			return;
 		} else {
 			// validate if there were any selections made

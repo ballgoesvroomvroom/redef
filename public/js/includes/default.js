@@ -254,7 +254,7 @@ function fetchPresetData() {
 			return r.json();
 		}
 	}).then(d => {
-		console.log("GATE D");
+		return d;
 	})
 }
 

@@ -1,4 +1,4 @@
-import { dispAlert, fetchWordData, fetchPresetData } from "./../includes/default.js";
+import { dispAlert, fetchWordData } from "./../includes/default.js";
 const SELECTED = []
 
 
@@ -61,6 +61,7 @@ function parseWords(wordJson) {
 
 $(document).ready(function(e) {
 	const $chapterContentsFrame = $("#chapter-contents-frame");
+	const $titleInput = $("#title-input");
 
 	function newChapterCard(data) {
 		// data: []; [["chapter 1", "sub chapter"], "word1", "word2"]
@@ -288,9 +289,18 @@ $(document).ready(function(e) {
 		}
 		createButtonClicked = true;
 
+		let inputtedTitle = $titleInput.val();
+
 		if (chapterCheckboxMapping.length === 0) {
 			// no mappings were added yet
 			console.log("chapterCheckboxMapping.length === 0: true");
+			dispAlert("Nothing selected");
+			createButtonClicked = false;
+			return;
+		} else if (inputtedTitle.length === 0) {
+			// no title given to created preset
+			dispAlert("Name for preset is required");
+			createButtonClicked = false;
 			return;
 		} else {
 			// validate if there were any selections made
@@ -364,7 +374,7 @@ $(document).ready(function(e) {
 					credentials: "same-origin",
 					body: JSON.stringify({
 						contents: {
-							title: "test",
+							title: inputtedTitle,
 							data: selected
 						}
 					})
@@ -394,11 +404,6 @@ $(document).ready(function(e) {
 				return;
 			}
 		}
-	})
-
-	console.log("byee")
-	fetchPresetData().then(r => {
-		console.log(r);
 	})
 
 	// for (let i = 0; i < 10; i++) {newChapterCard("[chapter 2] [gw 2]", ["tourism", "recession", "outbreak of diseases"])}

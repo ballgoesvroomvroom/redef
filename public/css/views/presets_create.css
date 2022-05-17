@@ -30,6 +30,30 @@
 	font-size: 2em;
 }
 
+#title-input-container {
+	display: flex;
+	flex-direction: column;
+
+	width: 100%;
+	padding: 10px 0;
+
+	font-size: 1.5em;
+}
+
+#title-input {
+	all: unset;
+
+	font-size: 0.9em;
+
+	padding: 10px 0;
+
+	border-radius: 5px;
+	border-style: solid;
+	border-color: white;
+	border-width: 0;
+	border-bottom-width: 1px;
+}
+
 #board-contents {
 	display: flex;
 	flex-direction: column;

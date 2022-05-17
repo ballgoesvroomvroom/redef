@@ -122,6 +122,18 @@
 	padding: 10px;
 }
 
+.chapter-card-createbutton {
+	color: #767676;
+	transition-property: color, font-weight;
+	transition-duration: 250ms;
+	transition-timing-function: ease-out;
+}
+
+.chapter-card-createbutton:hover {
+	font-weight: 600;
+	color: #fff;
+}
+
 .chapter-card-checkbox {
 	width: 20px;
 	min-width: 20px;
@@ -171,6 +183,15 @@
 .details-content-ele .chapter-card-checkbox {
 	/* already vertically aligned; no need for flex containers */
 	margin-right: 5px;
+}
+
+.details-content-miniheader {
+	font-size: 1.3em;
+}
+
+.details-content-minicontainer {
+	padding-left: 10px;
+	list-style-type: hiragana;
 }
 
 @media only screen and (max-width: 800px) {

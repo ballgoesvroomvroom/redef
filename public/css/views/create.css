@@ -114,24 +114,31 @@
 
 .chapter-card-rightsection {
 	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: flex-end;
+	flex-direction: row;
+	justify-content: flex-end;
+	align-items: center;
 	width: 400px;
 	height: 100%; /* parent height is 50px */
 	padding: 10px;
 }
 
-.chapter-card-createbutton {
+.chapter-card-createbutton:hover {
+	color: #fff;
+}
+
+.chapter-card-deletebutton:hover {
+	color: #8d3030;
+}
+
+.chapter-card-rightbutton {
 	color: #767676;
 	transition-property: color, font-weight;
 	transition-duration: 250ms;
 	transition-timing-function: ease-out;
 }
 
-.chapter-card-createbutton:hover {
+.chapter-card-rightbutton:hover {
 	font-weight: 600;
-	color: #fff;
 }
 
 .chapter-card-checkbox {

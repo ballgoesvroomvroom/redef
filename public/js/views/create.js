@@ -106,8 +106,17 @@ $(document).ready(function(e) {
 		// same schematics as what parseWords() returns (the elements of the returned array)
 
 		const [$div, $header, $contentContainer, $right] = buildBase();
+
+		// delete button; first so it'll appear on the left-most side
+		const $deleteButton = $("<button>", {
+			"class": "chapter-card-rightbutton chapter-card-deletebutton"
+		})
+		$deleteButton.text("[ DELETE ]");
+		$deleteButton.appendTo($right);
+
+		// create button		
 		const $createButton = $("<button>", {
-			"class": "chapter-card-createbutton"
+			"class": "chapter-card-rightbutton chapter-card-createbutton"
 		})
 		$createButton.text("[ CREATE ]");
 		$createButton.appendTo($right);
@@ -141,7 +150,7 @@ $(document).ready(function(e) {
 		$header.text(title); // set header's contents
 
 		$div.appendTo($presetsContentsFrame); // parent created main div to DOM
-		return $createButton;
+		return [$div, $createButton, $deleteButton];
 	}
 
 	function newChapterCard(data) {
@@ -396,9 +405,40 @@ $(document).ready(function(e) {
 				if (built.length > 0) {
 					// some validated chapters were added in preset
 					console.log("built: ", built)
-					const $createButton = newPresetCard(presetName, built);
+					const [$div, $createButton, $deleteButton] = newPresetCard(presetName, built);
 
+					var actionClicked = false; // debounce to handle both buttons; ensures no "double-clicking" or two buttons from being clicked at the same time
+					$deleteButton.on("click", e => {
+						if (actionClicked) {
+							// debounce
+							return;
+						}
+						actionClicked = true;
+						fetch("/api/presets/delete", {
+							method: "DELETE",
+							headers: {
+								"Content-Type": "application/json"
+							},
+							credentials: "same-origin",
+							body: JSON.stringify({
+								contents: presetName
+							})
+						}).then(r => {
+							if (r.status == 200) {
+								// success
+								$div.remove(); // should also detach all other event listeners so $createButton.on("click", ...) shouldn't trigger
+								dispAlert(`Removed preset "${presetName}"`);
+							} else {
+								dispAlert(`Couldn't remove preset with code ${r.status} returned from server`);
+								actionClicked = false;
+							}
+						})
+					})
 					$createButton.on("click", e => {
+						if (actionClicked) {
+							return;
+						}
+						actionClicked = true;
 						fetch("/api/test/create", {
 							method: "POST",
 							headers: {
@@ -422,6 +462,8 @@ $(document).ready(function(e) {
 						}).catch(err => {
 							console.log(err.toString());
 							dispAlert(err.toString());
+
+							actionClicked = false;
 						})
 					})
 				}

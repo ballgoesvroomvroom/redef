@@ -552,8 +552,8 @@ app.post("/api/test/create", authenticate, (req, res) => {
 		let testData = { // construct test data and append to current
 			"id": id,
 			state: 0, // 0 - not taken, 1 - taking (answers are partially filled), 2 - taken (all answers in .answers are present)
-			score: 0,
-			total: 0,
+			score: 0, // stores current score
+			total: 0, // total number of words to be tested in this test
 			stoppedAt: 0,
 			data: [],
 			contents: [],
@@ -756,9 +756,23 @@ app.post("/api/test/submitquestion", authenticate, (req, res) => {
 
 	// do the actual matching and scoring
 	let score = 0;
+	// calculate total score (amount of keywords) at the same time (cannot just take wordContents.length -1 as it counted negated keywords which is not what we want)
+	// since totalkeywords are independent to each word in a test, data wasnt stored in test data during creation of test but instead calculated at runtime
+	let totalScore = 0;
+
 	let keyword_regex_obj = {}; // store regex objects corresponding to keywords
 	for (let i = 1; i < wordContents.length; i++) {
 		var keyword = wordContents[i];
+
+		// determine if it is a negated keyword (denoted by a tilde at the front e.g. ~negateme!)
+		if (keyword[0] == "~") {
+			// move on to next keyword; don't even bother testing for it
+			continue;
+		}
+
+		// increment total score since current keyword isn't a negated keyword
+		totalScore += 1;
+
 		var regex = keyword_regex_obj[keyword];
 		if (regex == null) {
 			// first occurrence
@@ -776,9 +790,9 @@ app.post("/api/test/submitquestion", authenticate, (req, res) => {
 		}
 	}
 
-	let isCorrect = score > Math.floor(0.75 *(wordContents.length -1)); // hit 75% of the keywords to consider a correct; minus 1 to disregard actual answer stored in wordContents
+	let isCorrect = score > Math.floor(0.75 *totalScore); // hit 75% of the keywords to consider a correct; minus 1 to disregard actual answer stored in wordContents
 	// treats partially correct as wrong when calculating score, but for visual purposes, if score passed 0.5 margin, but not above correct margin, consider it as a partially correct
-	let passed = score >= Math.ceil(0.5 *wordContents.length);
+	let passed = score >= Math.ceil(0.5 *totalScore);
 
 	// log first occurrence of answer into testData
 	// no need to verify pos, since we've already did it with .contents array

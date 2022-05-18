@@ -366,7 +366,7 @@ $(document).ready(function(e) {
 			if (selected.length > 0) {
 				console.log("selected!");
 				console.log(selected);
-				fetch("/api/presets-create", {
+				fetch("/api/presets/create", {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json"

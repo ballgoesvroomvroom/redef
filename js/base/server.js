@@ -432,7 +432,7 @@ function getWordContents(username, chapterPath, word) {
 	return currentPath[1][word];
 }
 
-app.post("/api/presets-create", authenticate, (req, res) => {
+app.post("/api/presets/create", authenticate, (req, res) => {
 	// validate input
 	try {
 		const contents = req.body.contents;

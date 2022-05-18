@@ -432,6 +432,26 @@ function getWordContents(username, chapterPath, word) {
 	return currentPath[1][word];
 }
 
+app.delete("/api/presets/delete", authenticate, (req, res) => {
+	// delete presets with name passed in body.contents
+	try {
+		const contents = req.body.contents;
+		if (contents == null) {
+			throw new Error();
+		} else if (typeof contents != "string") {
+			throw new Error();
+		}
+
+		// even if presets don't exists, silently return a success code
+		var success = delete database.getUserField(req.session.username, "presets")[contents];
+		return res.json({"success": success})
+	} catch (err) {
+		console.error(err);
+		res.statusMessage = "malformedinput"
+		return res.status(400).json({"error": "malformed input"});
+	}
+})
+
 app.post("/api/presets/create", authenticate, (req, res) => {
 	// validate input
 	try {

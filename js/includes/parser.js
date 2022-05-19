@@ -1,5 +1,5 @@
 class regexObject {
-	static header = /(?!^\[).+(?=\]\s*$)/g;
+	static header = /(?<!\\)^\[(.+)\]\s*$/g;
 	static keyword = /^[Kk]eywords?:\s?/g;
 	static keyword_delimiter = /(?<!\\), */g;
 	static word = /(?<=^!).+(?=:\s*$)/g;
@@ -50,6 +50,7 @@ class Parser {
 	}
 
 	createNewChapter(chapter, indentLevel) {
+		console.log("C:", chapter, indentLevel, this.prevIndentLevel);
 		if (indentLevel > this.prevIndentLevel && indentLevel -this.prevIndentLevel > 1) {
 			// missing nested chapter; chapter indentation increased by more than 1
 			throw new Error("sudden increase in indentLevel for chapter: " +chapter);
@@ -212,7 +213,7 @@ function Parse(contents, options={enableRegexCapturing: false}) {
 		regexObject.header.lastIndex = -1; // reset regex object to ensure everything gets captured
 		headerMatch = regexObject.header.exec(lineContent);
 		if (headerMatch !== null) {
-			let [headerIndent, headerName] = Parser.getChapterIndent(headerMatch[0]);
+			let [headerIndent, headerName] = Parser.getChapterIndent(headerMatch[1]); // get first capture group (the contents of the title)
 			parserObject.createNewChapter(headerName, headerIndent)
 
 			continue;

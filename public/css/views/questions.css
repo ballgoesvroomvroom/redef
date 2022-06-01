@@ -4,6 +4,10 @@
 	--wrong-text-color: #e65e5e;
 }
 
+body {
+	background-color: var(--primary-color);
+}
+
 mark.highlighter {
 	background-color: #ffe48c;
 }

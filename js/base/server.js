@@ -1187,8 +1187,12 @@ app.post("/api/words/compare", authenticate, async (req, res) => {
 	}
 	*/
 	const current = database.getUserField(req.session.username, "words");
+	const preferences = database.getUserField(req.session.username, "preferences");
+
 	const content = req.body.contents;
-	const parsed = await parser.Parse(content);
+	const parsed = await parser.Parse(content, {
+			enableRegexCapturing: preferences.enableRegexCapturing
+		});
 
 	let returnValue = {
 		"new": [],

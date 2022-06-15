@@ -210,6 +210,7 @@ I only had that much time to invest developing this application, below are a few
 - Better navigation with buttons
 - A 'retake test' button at the end of a test where it automatically generates the same test, whilst following the `randomOrder` preference toggled via `/randomise`
 - Frontend page for editing uploaded content
+- Better sessions (timeouts too often and when server does a restart, session data is practically gone)
 
 ## Environment variables
 Currently uses `JWT_TOKEN` and `SESSIONSECRET`.<br>

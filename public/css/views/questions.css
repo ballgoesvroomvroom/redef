@@ -120,11 +120,13 @@ mark.highlighter {
 }
 
 #answer-box {
-	width: calc(100% - 16px);
-	/*flex-grow: 1;*/
+	flex-grow: 1;
+	flex-basis: 0;
+
 	height: calc(100% - 16px);
 	border-radius: 5px;
 	padding: 8px;
+	margin-right: 2px;
 	background-color: var(--secondary-color);
 }
 
@@ -139,11 +141,13 @@ mark.highlighter {
 
 #marking-sheet {
 	display: none;
-	width: calc(50% - 18px);
-	max-width: calc(50% - 18px);
+	flex-grow: 1;
+	flex-basis: 0;
+
 	height: calc(100% - 16px);
 	border-radius: 5px;
 	padding: 8px;
+	margin-left: 2px;
 	background-color: var(--accent-color-3);
 	color: #000;
 }
@@ -289,6 +293,21 @@ mark.highlighter {
 	#results-container {
 		width: calc(100% - 10px);
 		padding: 5px;
+	}
+
+	#answer-box-container {
+		flex-direction: column;
+		justify-content: flex-start;
+	}
+
+	#answer-box {
+		margin-right: 0px; /* reset current margin */
+		margin-bottom: 2px; /* total 4px of separation between answer-box and marking-sheet */
+	}
+
+	#marking-sheet {
+		margin-left: 0px; /* reset current margin */
+		margin-top: 2px; /* 2px of border */
 	}
 
 	.resultcard-comparisontable {

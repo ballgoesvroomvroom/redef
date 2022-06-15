@@ -568,9 +568,6 @@ $(document).ready(function(e) {
 			$selectors["marking-sheet"].css({
 				display: "block"
 			});
-			$selectors["answer-box"].css({
-				width: "calc(50% - 18px)", // additional 2px of margin to make the border; border is 4px
-			});
 			$selectors["answer-box"].removeAttr("contenteditable");
 
 			// change text of button
@@ -580,9 +577,6 @@ $(document).ready(function(e) {
 			console.log("hiding not show")
 			$selectors["marking-sheet"].css("display", "none");
 			$selectors["marking-sheet"].empty();
-			$selectors["answer-box"].css({
-				width: "calc(100% - 16px)"
-			})
 
 			$selectors["answer-box"].attr("contenteditable", "")
 			// change text of button

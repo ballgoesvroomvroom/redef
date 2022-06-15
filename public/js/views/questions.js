@@ -545,8 +545,8 @@ $(document).ready(function(e) {
 		var width = 1 /this.total *100 // percentage
 		newTrackEle.css({
 			"top": "0",
-			"left": `${width *pos}%`,
-			"width": `${width}%`,
+			"left": `${Math.ceil(width *pos *100)/ 100}%`, // round to 2 d.p.
+			"width": `${Math.ceil(width *100) /100}%`, // round to 2 d.p.
 			"border-radius": `${left}px ${right}px ${right}px ${left}px`,
 		});
 

@@ -73,6 +73,7 @@ Keywords (defined by a "keywords: " header on a new line) contains the user-defi
 
 Though there are some characters that need to escaped if the literal form is to be used, such as assertion characters for regular expression. This can be ignored if preferences disabled regular expressions matching, the server will escape it for you.
 
+Data is cached client-sided and a metadata value is used as an update tick whenever data is updated server-side to allow client-side to sync. This reduces the amount of transmissions of large data, consequently lower bandwidth usage.
 
 
 ## Self-testing

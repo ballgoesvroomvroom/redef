@@ -375,7 +375,7 @@ $(document).ready(() => {
 
 				let contents = ""; // build contents string
 				for (let j = 0; j < td.contents.length; j++) {
-					contents = "[" +td.contents[j][0].join("] [") +"]\n";
+					contents += "[" +td.contents[j][0].join("] [") +"]\n";
 					for (let k = 1; k < td.contents[j].length; k++) {
 						contents += "- " +td.contents[j][k] +"\n";
 					}

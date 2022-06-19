@@ -137,7 +137,7 @@ $(document).ready(() => {
 		const $content = $("<div>", {
 			"class": "datacard-content"
 		});
-		
+
 		$divHeader.text(contents.chapter);
 		$summary.appendTo($details);
 		$content.appendTo($details);
@@ -156,49 +156,49 @@ $(document).ready(() => {
 				const $container = $("<div>", {
 					"class": "datacard-content-diff"
 				});
-				const $new = $("<div>", {
-					"class": "datacard-content-ele"
+				const $word_content = $("<div>", {
+					"class": "datacard-content-diff-ele"
 				});
-				const $new1 = $("<div>", {
+				const $new_content = $("<div>", {
 					"class": "datacard-content-diff-new1"
 				});
-				const $new2 = $("<div>", {
-					"class": "datacard-content-diff-new2"
-				});
-				const $new1_span = $("<span>");
-				const $new2_span = $("<span>");
-				$new1_span.html(LineFeedToBR(d.new.content));
-				if (d.new.keyword.length > 0) {
-					$new2_span.text(d.new.keyword.join(", "));
-				}
-
-				$new1_span.appendTo($new1);
-				$new2_span.appendTo($new2);
-				$new1.appendTo($new);
-				$new2.appendTo($new);
-				$new.appendTo($container);
-
-				const $old = $("<div>", {
-					"class": "datacard-content-ele"
-				});
-				const $old1 = $("<div>", {
+				const $old_content = $("<div>", {
 					"class": "datacard-content-diff-old1"
 				});
-				const $old2 = $("<div>", {
+				const $newc_span = $("<span>");
+				const $oldc_span = $("<span>");
+				$newc_span.html(LineFeedToBR(d.new.content));
+				$oldc_span.html(LineFeedToBR(d.old.content));
+
+				$newc_span.appendTo($new_content);
+				$oldc_span.appendTo($old_content);
+				$new_content.appendTo($word_content);
+				$old_content.appendTo($word_content);
+				$word_content.appendTo($container);
+
+				const $keywords = $("<div>", {
+					"class": "datacard-content-diff-ele"
+				});
+				const $newk = $("<div>", {
+					"class": "datacard-content-diff-new2"
+				});
+				const $oldk = $("<div>", {
 					"class": "datacard-content-diff-old2"
 				});
-				const $old1_span = $("<span>");
-				const $old2_span = $("<span>");
-				$old1_span.html(LineFeedToBR(d.old.content));
+				const $newk_span = $("<span>");
+				const $oldk_span = $("<span>");
+				if (d.new.keyword.length > 0) {
+					$newk_span.text(d.new.keyword.join(", "));
+				}
 				if (d.old.keyword.length > 0) {
-					$old2_span.text(d.old.keyword.join(", "));
+					$oldk_span.text(d.old.keyword.join(", "));
 				}
 
-				$old1_span.appendTo($old1);
-				$old2_span.appendTo($old2);
-				$old1.appendTo($old);
-				$old2.appendTo($old);
-				$old.appendTo($container);
+				$newk_span.appendTo($newk);
+				$oldk_span.appendTo($oldk);
+				$newk.appendTo($keywords);
+				$oldk.appendTo($keywords);
+				$keywords.appendTo($container);
 
 				$container.appendTo($content);
 			} else {
@@ -423,7 +423,7 @@ $(document).ready(() => {
 			var filereader = new FileReader();
 			filereader.onload = function() {
 				// parse contents (filereader.result) here
-				
+
 				fetch("/api/words/compare", {
 					method: "POST",
 					headers: {

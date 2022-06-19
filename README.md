@@ -200,7 +200,7 @@ Bad navigation. There is a lack of navigation buttons, the main means of navigat
 
 
 
-Compatibility between browsers; application was tested only in a Chrome browswer, an unintentional bug may occur if another browser is used.
+Compatibility between browsers; application was tested only in a Chrome browswer, an unintentional bug may occur if another browser is used. Especially of older browsers where `fetch()` is not supported or the non-standard `contenteditable` (user input) causing missing contents when parsed
 
 ## Planned features
 I only had that much time to invest developing this application, below are a few features I plan to implement during my free time

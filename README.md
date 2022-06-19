@@ -11,7 +11,7 @@ Didn't implement any technology stack, project is as barebones as it can be.
 
 ## Demo
 
-Try it out at: [redef.catonwater.com](redef.catonwater.com)<br>
+Try it out at: [redef.catonwater.com](https://redef.catonwater.com)<br>
 Refer to [getting started](#getting-started)
 
 Use one of the following publicly available license keys to register for an account:

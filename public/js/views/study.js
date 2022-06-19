@@ -6,8 +6,9 @@ const HIGHLIGHTER = [ // different kinds of higherlighter
 ]
 
 const BG_COLORS = [
-	"#6e4d4d", "#54746d", "#3b465e", "#5e537a"
+	"#bd6d68", "#54746d", "#3b465e", "#5e537a"
 ]
+
 let currentColorIndex = -1; // will increment 1 when initialising (first use)
 
 // helper function

@@ -236,4 +236,5 @@ body {
 	font-family: "Tinos", serif;
 	color: #fff;
 	word-wrap: break-word;
+	background-color: var(--defaultbackgroundcolor)
 }

@@ -11,7 +11,7 @@ Didn't implement any technology stack, project is as barebones as it can be.
 
 ## Demo
 
-Try it out at: [redef.catonwater.com](redef.catonwater.com)<br>
+Try it out at: [redef.catonwater.com](https://redef.catonwater.com)<br>
 Refer to [getting started](#getting-started)
 
 Use one of the following publicly available license keys to register for an account:
@@ -200,7 +200,7 @@ Bad navigation. There is a lack of navigation buttons, the main means of navigat
 
 
 
-Compatibility between browsers; application was tested only in a Chrome browswer, an unintentional bug may occur if another browser is used.
+Compatibility between browsers; application was tested only in a Chrome browswer, an unintentional bug may occur if another browser is used. Especially of older browsers where `fetch()` is not supported or the non-standard `contenteditable` (user input) causing missing contents when parsed
 
 ## Planned features
 I only had that much time to invest developing this application, below are a few features I plan to implement during my free time

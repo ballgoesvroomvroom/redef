@@ -1,4 +1,5 @@
 import { fetchWordData } from "./../includes/default.js"
+import { Speaker } from "./../includes/speaker.js"
 
 const NEGATE_KEYWORDS_REGEX = /^~.+/gm;
 const HIGHLIGHTER = [ // different kinds of higherlighter
@@ -49,7 +50,6 @@ function highlight(contents, keywords) {
 		}
 		insertPos.push([match[0], match.index]);
 	}
-	console.log("CLOSEST", [...insertPos])
 
 	// find first index from insertPos
 	let tagged = ""; // store and build up results here
@@ -64,7 +64,6 @@ function highlight(contents, keywords) {
 			}
 		}
 
-		console.log(closest)
 		if (closest[1] === -1) {
 			// didn't find any match; get out of loop, no other matching keywords
 			break;
@@ -115,7 +114,6 @@ $(document).ready(function() {
 		}
 
 		var elements = $selectors["layout"].children();
-		console.log(elements.length);
 
 		var oneSpan = 30; // one span takes up 30 pixels (rough estimate of lineHeight +fontSize); doesn't matter, all elements span relative to this
 		for (let i = 0; i < elements.length; i++) {
@@ -149,6 +147,13 @@ $(document).ready(function() {
 		const $header = $("<div>", {
 			"class": "chapter-content-header"
 		});
+		const $header_span = $("<span>");
+		const $tts_button = $("<button>", {
+			"class": "chapter-content-tts-button"
+		});
+		const $tts_button_img = $("<img>", {
+			"src": "/icons/audio.svg"
+		});
 		const $wordEle = $("<div>", {
 			"class": "chapter-content-words"
 		});
@@ -156,9 +161,13 @@ $(document).ready(function() {
 			"class": "chapter-content-keywords"
 		});
 
-		$header.text(word);
+		$header_span.text(word);
 		$wordEle.html(content);
 		$keywordEle.text(keyword);
+
+		$header_span.appendTo($header);
+		$tts_button_img.appendTo($tts_button);
+		$tts_button.appendTo($header);
 
 		$header.appendTo($container);
 		$wordEle.appendTo($container);
@@ -168,6 +177,8 @@ $(document).ready(function() {
 		$container.appendTo($div);
 
 		$div.appendTo($selectors["layout"]);
+
+		return $tts_button
 	}
 
 	function readChapter(chapterName, chapterData, bgColor, path="") {
@@ -188,7 +199,10 @@ $(document).ready(function() {
 			}
 
 			// index 0 is the content
-			newWord(word, highlight(wordData[word][0], keywords), keywords.join(", "), bgColor);
+			const $tts_button = newWord(word, highlight(wordData[word][0], keywords), keywords.join(", "), bgColor);
+			$tts_button.on("click", () => {
+				Speaker.speak(wordData[word][0]);
+			})
 		}
 
 		// parse descendant chapters if any

@@ -200,8 +200,15 @@ $(document).ready(function() {
 
 			// index 0 is the content
 			const $tts_button = newWord(word, highlight(wordData[word][0], keywords), keywords.join(", "), bgColor);
+			let tts_button_clicked = false; // button acts as a toggle; let declaration to make it "local"
 			$tts_button.on("click", () => {
-				Speaker.speak(wordData[word][0]);
+				if (tts_button_clicked) {
+					Speaker.stop();
+				} else {
+					Speaker.speak(wordData[word][0]);
+				}
+
+				tts_button_clicked = !tts_button_clicked
 			})
 		}
 

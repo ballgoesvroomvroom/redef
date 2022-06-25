@@ -36,7 +36,7 @@ $(document).ready(function(e) {
 		e.stopPropagation();
 
 		// verify username key
-		fetch("/api/vu", {
+		fetch("/register/vu", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"
@@ -61,7 +61,7 @@ $(document).ready(function(e) {
 		e.stopPropagation();
 
 		// verify license key
-		fetch("/api/vlk", {
+		fetch("/register/vlk", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"
@@ -95,7 +95,7 @@ $(document).ready(function(e) {
 		if (isFormValid) {
 			// valid forms
 			// send fetch signal
-			fetch("/api/register", {
+			fetch("/register/action", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json"
@@ -128,7 +128,7 @@ $(document).ready(function(e) {
 				// success, redirect login page
 				window.location.replace("/"); // redirect to login page
 			}).catch(errMsg => {
-
+				console.error(errMsg);
 				dispAlert(errMsg.toString());
 				showSubmitSpinner(false);
 				processing = false; // reset debounce state

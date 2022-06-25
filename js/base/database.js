@@ -96,7 +96,6 @@ class Repository {
 	createField(key, value) {
 		if (this.contents[key] != null) {
 			// already exist
-			console.log
 			return null; // don't override
 		} else {
 			// no entry for key yet in this.contents
@@ -110,4 +109,7 @@ class Repository {
 	}
 }
 
-module.exports = Repository
+module.exports = {
+	user: new Repository(path.join(process.cwd(), "database/main.json")),
+	server: new Repository(path.join(process.cwd(), "database/server.json"))
+}

@@ -44,10 +44,11 @@ $(document).ready(function(e) {
 		if (isFormValid) {
 			// valid forms
 			// send fetch signal
-			fetch("/api/login", {
+			fetch("/auth/login", {
 				method: "POST",
 				headers: {
-					"Content-Type": "application/json"
+					"Content-Type": "application/json",
+					credentials: "same-origin"
 				},
 				body: JSON.stringify({
 					username: $usernameInput.val(),
@@ -56,14 +57,12 @@ $(document).ready(function(e) {
 			}).then(res => {
 				if (res.status == 200) {
 					// valid
-					return res.json();
+					return
 				} else {
 					// server invalidated request
 					throw Error(JSON.stringify(res.json().error));
 				}
-			}).then(res => {
-				// res contains the token; res.Token
-				// localStorage.setItem("token", res.Token);
+			}).then(() => {
 				showSubmitSpinner(false);
 				processing = false; // reset debounce state
 

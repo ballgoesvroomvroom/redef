@@ -17,15 +17,16 @@ class SessionStore {
 	constructor() {
 		this.clients = new Map();
 
-		this._cleanupID = setInterval(() => {
-			this._cleanupOperation();
+		var store = this;
+		this._cleanupID = setInterval(function() {
+			store._cleanupOperation();
 		}, 1000)
 	}
 
 	_cleanupOperation() {
 		var timeNow = (new Date()).getTime();
 
-		this.clients.forEach(function(clientObject, clientId) {
+		this.clients.forEach((clientObject, clientId) => {
 			if (timeNow - clientObject._createdAt > SESSION_TTL *60 *1000) {
 				this.destroyClient(clientId);
 			}
@@ -72,6 +73,11 @@ class Client {
 	persist() {
 		// reset timer
 		this._createdAt = (new Date()).getTime();
+	}
+
+	destroy() {
+		// place holder
+		return;
 	}
 }
 

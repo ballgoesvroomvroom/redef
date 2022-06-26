@@ -8,6 +8,8 @@ const databaseinst = require("../../base/database.js");
 
 const userDB = databaseinst.user;
 
+const errmsg = require("../err_msgs.js");
+
 const router = express.Router();
 const SessionStore = sessions.SessionStore;
 
@@ -85,25 +87,41 @@ const authenticated = (req, res, next) => { // actual authentication
 router.post("/login", (req, res) => {
 	// authenticate based on username and password (plain/text)
 	let authSuccess = false;
-	if (req.body.username != null && req.body.password != null) {
-		let username = req.body.username;
-		let password = req.body.password;
 
-		if (userDB.doesUserExists(username)) {
-			// validate password
-			if (password == userDB.getUserField(username, "password")) {
-				req.session.username = username; // store username
-				authSuccess = true;
+	// validate input
+	try {
+		if (req.headers.hasOwnProperty("authorization")) {
+			let creds = req.headers.authorization.split(":");
+			
+			if (creds.length != 2) {
+				// not valid; username:password only; expected 2 values
+				throw new Error(errmsg.invalid);
 			}
+			let [username, password] = creds;
+
+			if (userDB.doesUserExists(username)) {
+				// validate password
+				if (password == userDB.getUserField(username, "password")) {
+					req.session.username = username; // store username
+					authSuccess = true;
+				}
+			}
+		} else {
+			throw new Error(errmsg.missing);
 		}
+	} catch (err) {
+		res.statusMessage = err.message;
+		res.status(400).json({"error": "Malformed input"});
 	}
 
 	if (authSuccess) {
 		req.session.isAuthenticated = true;
 		res.status(200).end();
 	} else {
-		// TO-DO [explicit return with json err msg]
-		res.status(400).end();
+		// return 401
+		// following spec
+		res.set("WWW-Authenticate", `Basic realm="Site login"`);
+		res.status(401).json({"error": "Invalid credentials"});
 	}
 })
 

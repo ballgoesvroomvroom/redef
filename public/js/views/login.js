@@ -48,12 +48,8 @@ $(document).ready(function(e) {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
-					credentials: "same-origin"
-				},
-				body: JSON.stringify({
-					username: $usernameInput.val(),
-					password: $passwordInput.val()
-				})
+					"Authorization": `Basic ${$usernameInput.val()}:${$passwordInput.val()}`
+				}
 			}).then(res => {
 				if (res.status == 200) {
 					// valid

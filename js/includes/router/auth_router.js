@@ -80,7 +80,6 @@ const authenticated = (req, res, next) => { // actual authentication
 	if (sessionobj.isAuthenticated) {
 		next(); // authenticated
 	} else {
-		res.set("Cache-Control", "no-cache"); // don't cache login page
 		res.sendFile(views.login); // send login page
 	}
 }

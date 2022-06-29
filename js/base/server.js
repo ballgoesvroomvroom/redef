@@ -36,6 +36,12 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 // routers
+app.use((req, res, next) => {
+	// disable cache for all pages
+	res.set("Cache-Control", "no-cache");
+	next();
+});
+
 app.use(auth_router.parseCookie); // parse cookies
 app.use(auth_router.baseSession); // attach sessionobject to every route
 

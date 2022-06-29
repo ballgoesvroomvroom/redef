@@ -80,6 +80,7 @@ const authenticated = (req, res, next) => { // actual authentication
 	if (sessionobj.isAuthenticated) {
 		next(); // authenticated
 	} else {
+		res.set("Cache-Control", "no-cache"); // don't cache login page
 		res.sendFile(views.login); // send login page
 	}
 }
@@ -103,7 +104,7 @@ router.post("/login", (req, res) => {
 
 			// take second value 'username:password'
 			let creds = method[1].split(":");
-			
+
 			if (creds.length != 2) {
 				// not valid; username:password only; expected 2 values
 				throw new Error(errmsg.invalid);

@@ -91,7 +91,18 @@ router.post("/login", (req, res) => {
 	// validate input
 	try {
 		if (req.headers.hasOwnProperty("authorization")) {
-			let creds = req.headers.authorization.split(":");
+			let method = req.headers.authorization.split(" ");
+
+			// only accept the 'Basic' method
+			if (method.length != 2) {
+				// expected two values 'Basic username:password'
+				throw new Error(errmsg.invalid);
+			} else if (method[0] != "Basic") {
+				throw new Error(errmsg.invalid);
+			}
+
+			// take second value 'username:password'
+			let creds = method[1].split(":");
 			
 			if (creds.length != 2) {
 				// not valid; username:password only; expected 2 values

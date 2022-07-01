@@ -38,7 +38,7 @@ app.use(bodyParser.json())
 // routers
 app.use((req, res, next) => {
 	// disable cache for all pages
-	res.set("Cache-Control", "no-cache");
+	res.set("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0");
 	next();
 });
 

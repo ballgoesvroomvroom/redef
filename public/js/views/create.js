@@ -430,8 +430,8 @@ $(document).ready(function(e) {
 								dispAlert(`Removed preset "${presetName}"`);
 							} else {
 								dispAlert(`Couldn't remove preset with code ${r.status} returned from server`);
-								actionClicked = false;
 							}
+							actionClicked = false; // reset
 						})
 					})
 					$createButton.on("click", e => {

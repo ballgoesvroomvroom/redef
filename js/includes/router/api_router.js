@@ -201,6 +201,7 @@ router.post("/presets/create", (req, res) => {
 		// format validated
 		// don't check for whether if chapter exists of words etc, validated by /api/test/create when using preset itself
 		Presets.create(req.session.username, name, data);
+		res.status(200).end();
 	} catch (err) {
 		res.statusMessage = err.message;
 		res.status(400).json({"error": "Malformed input"})

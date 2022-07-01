@@ -145,7 +145,7 @@ router.delete("/presets/delete", (req, res) => {
 		}
 
 		// even if presets don't exists, silently exit (return a success code)
-		var success = Presets.delete(req.body.username, contents);
+		var success = Presets.delete(req.session.username, contents);
 		res.json({"success": success});
 	} catch (err) {
 		console.error(err);

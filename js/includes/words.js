@@ -18,7 +18,7 @@ class Words {
 
 		let path = []; // build path to reference in current
 		let prevChapter = "";
-		let prevIndentLevel = 0;
+		let prevIndentLevel = 0; // indents start at 1
 		for (let i = 0; i < parsed.length; i++) {
 			const chapter = parsed[i];
 
@@ -27,7 +27,10 @@ class Words {
 				path.push(prevChapter);
 				prevIndentLevel = chapter.indentLevel;
 			} else if (chapter.indentLevel < prevIndentLevel) {
-				path.pop(); // remove the last element
+				// account for indents that drop by 1 or more
+				for (let j = 0; j < prevIndentLevel -chapter.indentLevel; j++) {
+					path.pop(); // remove last element
+				}
 				prevIndentLevel = chapter.indentLevel;
 			}
 
@@ -116,7 +119,10 @@ class Words {
 				path.push(prevChapter);
 				prevIndentLevel = chapter.indentLevel;
 			} else if (chapter.indentLevel < prevIndentLevel) {
-				path.pop(); // remove the last element
+				// account for indents that drop by 1 or more
+				for (let j = 0; j < prevIndentLevel -chapter.indentLevel; j++) {
+					path.pop(); // remove last element
+				}
 				prevIndentLevel = chapter.indentLevel;
 			}
 

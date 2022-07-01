@@ -79,8 +79,6 @@ class Parser {
 		return this.contents.length == 0;
 	}
 
-	regexSafeParse
-
 	static getChapterIndent(chapterString) {
 		// determines indent level for chapterString
 		// returns a number, the amount of indent

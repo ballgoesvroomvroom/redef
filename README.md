@@ -206,12 +206,11 @@ Compatibility between browsers; application was tested only in a Chrome browswer
 I only had that much time to invest developing this application, below are a few features I plan to implement during my free time
 
 - Ability to upload data through the use of URIs (mainly URLs)
-- Text-to-speech feature embedded into `/study` page
 - Spinners to indicate loading events (right now, page feels rather unresponsive)
 - Better navigation with buttons
 - A 'retake test' button at the end of a test where it automatically generates the same test, whilst following the `randomOrder` preference toggled via `/randomise`
 - Frontend page for editing uploaded content
-- Better sessions (timeouts too often and when server does a restart, session data is practically gone)
+- Able to show missing keywords at a test review page
 
 ## Environment variables
 Currently uses `JWT_TOKEN` and `SESSIONSECRET`.<br>

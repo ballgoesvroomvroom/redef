@@ -10,11 +10,17 @@ class Words {
 		const current = userDB.getUserField(username, "words");
 		const preferences = userDB.getUserField(username, "preferences");
 
-		const parsed = await parser.Parse(contents,
+		var parsed = await parser.Parse(contents,
 			{
 				enableRegexCapturing: preferences.enableRegexCapturing
 			}
 		);
+
+		if (parsed[0] == false) {
+			return parsed; // [false, errmsg]
+		} else {
+			parsed = parsed[1]; // [parsed.contents]
+		}
 
 		let path = []; // build path to reference in current
 		let prevChapter = "";
@@ -99,9 +105,15 @@ class Words {
 		const current = userDB.getUserField(username, "words");
 		const preferences = userDB.getUserField(username, "preferences");
 
-		const parsed = await parser.Parse(content, {
+		var parsed = await parser.Parse(content, {
 				enableRegexCapturing: preferences.enableRegexCapturing
 			});
+
+		if (parsed[0] == false) {
+			return parsed; // [false, errmsg]
+		} else {
+			parsed = parsed[1]; // [parsed.contents]
+		}
 
 		let returnValue = {
 			"new": [],

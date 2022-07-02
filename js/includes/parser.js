@@ -6,7 +6,7 @@ class regexObject {
 	static headerIndent = /^-+ ?/g;
 }
 
-class RegexEscape {
+class RegexUtils {
 	static regexmap = {
 		// a map of regex assertions to escape
 		// e.g. used for when keywords match for the entire string (no keyword declaration, hence entire content is being used as keyword)
@@ -23,8 +23,8 @@ class RegexEscape {
 	}
 
 	static escape(s) {
-		for (const r in RegexEscape.regexmap) {
-			s = s.replace(new RegExp(`\\${r}`, "gm"), RegexEscape.regexmap[r]);
+		for (const r in RegexUtils.regexmap) {
+			s = s.replace(new RegExp(`\\${r}`, "gm"), RegexUtils.regexmap[r]);
 		}
 		return s;
 	}
@@ -52,10 +52,10 @@ class Parser {
 	createNewChapter(chapter, indentLevel) {
 		if (indentLevel > this.prevIndentLevel && indentLevel -this.prevIndentLevel > 1) {
 			// missing nested chapter; chapter indentation increased by more than 1
-			throw new Error("sudden increase in indentLevel for chapter: " +chapter);
+			throw new Error("Sudden increase in indentLevel for Chapter: " +chapter);
 		} else if (indentLevel > 0 && this.contents.length === 0) {
 			// indented (sub chapter) even though no parent (root) chapter was defined
-			throw new Error("sub chapter without root chapter")
+			throw new Error("Sub chapter created without root chapter")
 		}
 
 		// if current chapter's current word has keywords declaration
@@ -166,11 +166,24 @@ class WordObject {
 				// empty string; don't add!!
 				continue;
 			} else if (escapeRegex || !this.options.enableRegexCapturing) {
+				// keyword not using regex
 				// escape regex assertions
 				// parameter escapeRegex has higher precedence than this.options.enableRegexCapturing for when adding entire contents as keywords
-				keyword = RegexEscape.escape(keyword.toLowerCase());
+				keyword = RegexUtils.escape(keyword.toLowerCase());
 			} else {
-				keyword = keyword.toLowerCase();
+				// validate if regex is valid
+				var isValid = true;
+				try {
+					new RegExp(keyword);
+				} catch (err) {
+					isValid = false;
+				}
+
+				if (isValid == false) {
+					throw new Error(`Illegal regex syntax for keyword: ${keyword}`);
+				} else {
+					keyword = keyword.toLowerCase();
+				}
 			}
 			this.keywords.push(keyword); // convert all of the keywords to lowercase
 		}
@@ -183,94 +196,98 @@ function Parse(contents, options={enableRegexCapturing: false}) {
 	 */
 
 	// main object
-	parserObject = new Parser(options);
+	try {
+		parserObject = new Parser(options);
 
-	lines = contents.split(/\r?\n/gm);
-	numnberOfLines = lines.length;
-	for (let lineCount = 0; lineCount < numnberOfLines; lineCount++) {
-		lineContent = lines[lineCount];
-		if (lineContent === "===") {
-			parserObject.commenting = !parserObject.commenting;
-			continue; // move to next line first
-		}
-
-		if (parserObject.commenting) {
-			// dont regard data as anything meaningful; comments
-			continue;
-		}
-
-		if (lineContent.length === 0) {
-			if (!parserObject.isKeywords && !parserObject.isEmpty() && !parserObject.currentChapter.isEmpty()) {
-				// add empty line to current existing word
-				parserObject.currentChapter.currentWord.addLine("");
+		lines = contents.split(/\r?\n/gm);
+		numnberOfLines = lines.length;
+		for (let lineCount = 0; lineCount < numnberOfLines; lineCount++) {
+			lineContent = lines[lineCount];
+			if (lineContent === "===") {
+				parserObject.commenting = !parserObject.commenting;
+				continue; // move to next line first
 			}
-			continue;
-		}
 
-		regexObject.header.lastIndex = -1; // reset regex object to ensure everything gets captured
-		headerMatch = regexObject.header.exec(lineContent);
-		if (headerMatch !== null) {
-			let [headerIndent, headerName] = Parser.getChapterIndent(headerMatch[1]); // get first capture group (the contents of the title)
-			parserObject.createNewChapter(headerName, headerIndent)
+			if (parserObject.commenting) {
+				// dont regard data as anything meaningful; comments
+				continue;
+			}
 
-			continue;
-		}
+			if (lineContent.length === 0) {
+				if (!parserObject.isKeywords && !parserObject.isEmpty() && !parserObject.currentChapter.isEmpty()) {
+					// add empty line to current existing word
+					parserObject.currentChapter.currentWord.addLine("");
+				}
+				continue;
+			}
 
-		// reset regex objects
-		regexObject.word.lastIndex = -1;
-		regexObject.keyword.lastIndex = -1;
+			regexObject.header.lastIndex = -1; // reset regex object to ensure everything gets captured
+			headerMatch = regexObject.header.exec(lineContent);
+			if (headerMatch !== null) {
+				let [headerIndent, headerName] = Parser.getChapterIndent(headerMatch[1]); // get first capture group (the contents of the title)
+				parserObject.createNewChapter(headerName, headerIndent)
 
-		if (!parserObject.isEmpty()) {
-			// find words; must have a chapter
-			wordsMatch = lineContent.match(regexObject.word);
-			if (wordsMatch != null) {
-				// new word
-				parserObject.currentChapter.addWords(wordsMatch[0]);
-				parserObject.isKeywords = false; // toggle it off, moving to new word
+				continue;
+			}
 
-				continue; // no more content at this line; move on
-			} else if (!parserObject.currentChapter.isEmpty()) {
-				// already in a word, look for keywords definitions
-				// make sure word was found for keyword definition
-				keywordsMatch = lineContent.match(regexObject.keyword);
-				if (keywordsMatch != null) {
-					parserObject.isKeywords = true;
+			// reset regex objects
+			regexObject.word.lastIndex = -1;
+			regexObject.keyword.lastIndex = -1;
 
-					lineContent = lineContent.slice(keywordsMatch[0].length); // remove the keywords header
-					// don't continue, contents may be appended after the colon, e.g. `keywords: xx, yy, zz`
+			if (!parserObject.isEmpty()) {
+				// find words; must have a chapter
+				wordsMatch = lineContent.match(regexObject.word);
+				if (wordsMatch != null) {
+					// new word
+					parserObject.currentChapter.addWords(wordsMatch[0]);
+					parserObject.isKeywords = false; // toggle it off, moving to new word
 
-					if (lineContent.length === 0) {
-						// continue, no data to work on, no contents appended after the colon, e.g. `keywords:`
-						continue;
+					continue; // no more content at this line; move on
+				} else if (!parserObject.currentChapter.isEmpty()) {
+					// already in a word, look for keywords definitions
+					// make sure word was found for keyword definition
+					keywordsMatch = lineContent.match(regexObject.keyword);
+					if (keywordsMatch != null) {
+						parserObject.isKeywords = true;
+
+						lineContent = lineContent.slice(keywordsMatch[0].length); // remove the keywords header
+						// don't continue, contents may be appended after the colon, e.g. `keywords: xx, yy, zz`
+
+						if (lineContent.length === 0) {
+							// continue, no data to work on, no contents appended after the colon, e.g. `keywords:`
+							continue;
+						}
 					}
 				}
 			}
+
+			// treat it as normal text either in definitions area or keywords area
+			if (parserObject.isEmpty() || parserObject.currentChapter.isEmpty()) {
+				// nothing added
+				continue;
+			}
+
+			if (parserObject.isKeywords) {
+				// add it to keywords area
+				parserObject.currentChapter.currentWord.addKeywordsByLine(lineContent);
+			} else {
+				// normal text; add it to definitions area
+				parserObject.currentChapter.currentWord.addLine(lineContent);
+			}
 		}
 
-		// treat it as normal text either in definitions area or keywords area
-		if (parserObject.isEmpty() || parserObject.currentChapter.isEmpty()) {
-			// nothing added
-			continue;
+		// check to see if last word has any keywords added
+		if (!parserObject.isEmpty() && !parserObject.currentChapter.isEmpty()) {
+			if (parserObject.currentChapter.currentWord.keywords.length === 0) {
+				// has chapter and word but last word does not have any keywords
+				parserObject.currentChapter.addContentsAsKeywords();
+			}
 		}
 
-		if (parserObject.isKeywords) {
-			// add it to keywords area
-			parserObject.currentChapter.currentWord.addKeywordsByLine(lineContent);
-		} else {
-			// normal text; add it to definitions area
-			parserObject.currentChapter.currentWord.addLine(lineContent);
-		}
+		return [true, parserObject.contents];
+	} catch (err) {
+		return [false, err.message];
 	}
-
-	// check to see if last word has any keywords added
-	if (!parserObject.isEmpty() && !parserObject.currentChapter.isEmpty()) {
-		if (parserObject.currentChapter.currentWord.keywords.length === 0) {
-			// has chapter and word but last word does not have any keywords
-			parserObject.currentChapter.addContentsAsKeywords();
-		}
-	}
-
-	return parserObject.contents
 }
 
 module.exports = {

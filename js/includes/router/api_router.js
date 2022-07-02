@@ -77,7 +77,7 @@ router.post("/words/upload", async (req, res) => {
 		}
 	} catch (err) {
 		res.statusMessage = err.message;
-		res.status(400).json({"error": "Malformed input"});
+		res.status(400).json({"error": `Malformed input; ${err.message}`});
 	}
 })
 
@@ -122,7 +122,7 @@ router.post("/words/compare", async (req, res) => {
 		}
 	} catch (err) {
 		res.statusMessage = err.message;
-		res.status(400).json({"error": "Malformed input"});
+		res.status(400).json({"error": `Malformed input; ${err.message}`});
 	}
 })
 
@@ -150,7 +150,7 @@ router.delete("/presets/delete", (req, res) => {
 	} catch (err) {
 		console.error(err);
 		res.statusMessage = err.message;
-		res.status(400).json({"error": "Malformed input"});
+		res.status(400).json({"error": `Malformed input; ${err.message}`});
 	}
 })
 
@@ -204,7 +204,7 @@ router.post("/presets/create", (req, res) => {
 		res.status(200).end();
 	} catch (err) {
 		res.statusMessage = err.message;
-		res.status(400).json({"error": "Malformed input"})
+		res.status(400).json({"error": `Malformed input; ${err.message}`})
 	}
 })
 
@@ -239,7 +239,7 @@ router.get("/test/l/:id", (req, res) => {
 		}
 	} catch (err) {
 		res.statusMessage = err.message;
-		return res.status(400).json({"error": "Malformed input"});
+		return res.status(400).json({"error": `Malformed input; ${err.message}`});
 	}
 
 	let test = Tests.getTestFromId(req.session.username, requestedID);
@@ -288,7 +288,7 @@ router.post("/test/create", (req, res) => {
 	} catch (err) {
 		console.error(err);
 		res.statusMessage = err.message;
-		res.status(400).json({"error": "Malformed input"});
+		res.status(400).json({"error": `Malformed input; ${err.message}`});
 	}
 })
 
@@ -340,7 +340,7 @@ router.post("/test/submitquestion", (req, res) => {
 		}
 	} catch (err) {
 		res.statusMessage = err.message;
-		res.status(400).json({"error": "Malformed input"})
+		res.status(400).json({"error": `Malformed input; ${err.message}`})
 	}
 })
 

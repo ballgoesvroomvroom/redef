@@ -213,8 +213,7 @@ I only had that much time to invest developing this application, below are a few
 - Able to show missing keywords at a test review page
 
 ## Environment variables
-Currently uses `JWT_TOKEN` and `SESSIONSECRET`.<br>
-Both takes in a hexadecimal string of arbitrary length.
+Nothing being used at the moment.
 
 ## Closing note
 Any contributions are welcomed, simply create a PR and I'll take a look at it.

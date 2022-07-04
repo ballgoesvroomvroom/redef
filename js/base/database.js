@@ -110,6 +110,6 @@ class Repository {
 }
 
 module.exports = {
-	user: new Repository(path.join(process.cwd(), "database/main.json")),
-	server: new Repository(path.join(process.cwd(), "database/server.json"))
+	user: new Repository(path.join(__dirname, "../../database/main.json")),
+	server: new Repository(path.join(__dirname, "../../database/server.json"))
 }

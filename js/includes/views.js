@@ -1,7 +1,7 @@
 // stores the paths for the different views
 const path = require("path");
 
-const root = process.cwd();
+// root is a global variable
 const html = path.join(root, "/public/html/")
 
 class Views {

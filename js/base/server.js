@@ -6,6 +6,9 @@ const dotenv = require("dotenv").config();
 const fs = require("fs");
 const path = require("path");
 
+// set root path
+global.root = path.resolve(__dirname);
+
 // local modules
 const DatabaseInstance = require("./database");
 

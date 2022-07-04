@@ -7,7 +7,8 @@ const fs = require("fs");
 const path = require("path");
 
 // set root path
-global.root = path.resolve(__dirname);
+global.root = path.resolve(path.join(__dirname, "../../"));
+console.log(global.root);
 
 // local modules
 const DatabaseInstance = require("./database");

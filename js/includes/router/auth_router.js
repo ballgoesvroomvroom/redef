@@ -101,6 +101,10 @@ router.post("/login", (req, res) => {
 				throw new Error(errmsg.invalid);
 			}
 
+			// encoded in base64; decode it first
+			let b = Buffer.from(method[1], "base64");
+			method[1] = b.toString("utf-8");
+
 			// take second value 'username:password'
 			let creds = method[1].split(":");
 

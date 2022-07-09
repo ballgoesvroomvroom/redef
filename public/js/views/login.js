@@ -44,11 +44,16 @@ $(document).ready(function(e) {
 		if (isFormValid) {
 			// valid forms
 			// send fetch signal
+
+			// decode authorisation field
+			var payload = `${$usernameInput.val()}:${$passwordInput.val()}`;
+			var encodedPayload = btoa(payload);
+
 			fetch("/auth/login", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
-					"Authorization": `Basic ${$usernameInput.val()}:${$passwordInput.val()}`
+					"Authorization": `Basic ${encodedPayload}`
 				}
 			}).then(res => {
 				if (res.status == 200) {

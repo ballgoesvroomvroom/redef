@@ -126,7 +126,7 @@ router.post("/login", (req, res) => {
 		}
 	} catch (err) {
 		res.statusMessage = err.message;
-		res.status(400).json({"error": "Malformed input"});
+		return res.status(400).json({"error": `Malformed input; ${err.message}`});
 	}
 
 	if (authSuccess) {

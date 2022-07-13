@@ -114,6 +114,12 @@ router.post("/login", (req, res) => {
 			}
 			let [username, password] = creds;
 
+			if (username.length < 5 || username.length > 25) {
+				throw new Error(errmsg.invalid);
+			} else if (password.length < 6 || password.length > 100) {
+				throw new Error(errmsg.invalid);
+			}
+
 			if (userDB.doesUserExists(username)) {
 				// validate password
 				if (password == userDB.getUserField(username, "password")) {

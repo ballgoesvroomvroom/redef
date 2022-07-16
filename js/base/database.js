@@ -1,3 +1,5 @@
+// TO-DO: encrypt senstive fields such as passwords
+
 const fs = require("fs");
 const path = require("path");
 

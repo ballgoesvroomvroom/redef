@@ -60,13 +60,14 @@ class Parser {
 
 		// if current chapter's current word has keywords declaration
 		if (this.currentChapter != null && this.currentChapter.currentWord) {
+			// not needed
 			// get keywords data of wordobject
 			// check if word has no keywords
-			if (this.currentChapter.currentWord.keywords.length === 0) {
+			// if (this.currentChapter.currentWord.keywords.length === 0) {
 				// parse wordobject contents to be used as whole keyword
 				// remove new lines, escape delimiters using a backslash so it doesn't get separated
-				this.currentChapter.addContentsAsKeywords();
-			}
+				// this.currentChapter.close();
+			// }
 		}
 
 		this.contents.push(new ChapterObject(chapter, indentLevel, this.options));
@@ -113,13 +114,14 @@ class ChapterObject {
 		return this.words.length == 0;
 	}
 
-	addContentsAsKeywords() {
+	close() {
+		// called to properly close chapter
 		// run after validating presence of this.currentWord
-		// for no keywords declaration; use current word's contents as current word's keywords (wholesale)
-		let parsed = this.currentWord.contents;
-		parsed = parsed.replace(/\r?\n/gm, " ").replace(/,/gm, "\\,"); // strip linefeeds with a single whitespace character, escape delimiters too
+		// for no keywords declaration; 
+		// let parsed = this.currentWord.contents;
+		// parsed = parsed.replace(/\r?\n/gm, " ").replace(/,/gm, "\\,"); // strip linefeeds with a single whitespace character, escape delimiters too
 
-		this.currentWord.addKeywordsByLine(parsed, true);
+		// this.currentWord.addKeywordsByLine(parsed, true);
 	}
 
 	addWords(word) {

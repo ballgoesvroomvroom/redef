@@ -1,7 +1,7 @@
 // handles sessions
 
 // CONSTANTS
-const SESSION_TTL = 30; // minutes
+const SESSION_TTL = 43200; // minutes; 30 days
 
 // DEPENDANCIES
 const crypto = require("crypto")

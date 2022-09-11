@@ -123,7 +123,7 @@ $(document).ready(function(e) {
 			window.open(URL.createObjectURL(blob));
 
 			// reset debounce
-			// zipButtonClicked = false;
+			zipButtonClicked = false;
 		})
 	});
 })

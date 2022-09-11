@@ -209,6 +209,7 @@ class Tests {
 		}
 
 		// do the actual matching and scoring
+
 		let score = 0;
 		// calculate total score (amount of keywords) at the same time (cannot just take wordContents.length -1 as it counted negated keywords which is not what we want)
 		// since totalkeywords are independent to each word in a test, data wasnt stored in test data during creation of test but instead calculated at runtime
@@ -244,7 +245,7 @@ class Tests {
 			}
 		}
 
-		let isCorrect = score > Math.floor(0.75 *totalScore); // hit 75% of the keywords to consider a correct; minus 1 to disregard actual answer stored in wordContents
+		let isCorrect = score >= Math.floor(0.75 *totalScore); // hit 75% of the keywords to consider a correct; minus 1 to disregard actual answer stored in wordContents; >= to accommodate for totalScore = 0 (no keywords)
 		// treats partially correct as wrong when calculating score, but for visual purposes, if score passed 0.5 margin, but not above correct margin, consider it as a partially correct
 		let passed = score >= Math.ceil(0.5 *totalScore);
 

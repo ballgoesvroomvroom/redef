@@ -15,6 +15,8 @@ class Views {
 	static study = path.join(html, "views/study.html")
 	static test = path.join(html, "views/questions.html")
 
+	static flashtabs_export = path.join(html, "views/flashtabs_export.html")
+
 	static settings = path.join(html, "views/settings.html")
 
 	static notFound = path.join(html, "includes/404.html")

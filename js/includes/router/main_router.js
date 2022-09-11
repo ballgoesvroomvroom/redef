@@ -114,6 +114,17 @@ router.get("/secret-get-path", (req, res) => {
 	}
 })
 
+// FLASHTABS EXPORT PAGE
+router.get("/flashtabs", (req, res) => {
+	res.type("html");
+	res.sendFile(views.flashtabs_export);
+})
+
+// FLASHTABS EXPORT PAGE (ALIAS)
+router.get("/flashtab", (req, res) => {
+	res.redirect("/flashtabs")
+})
+
 module.exports = {
 	baseURL, router
 }

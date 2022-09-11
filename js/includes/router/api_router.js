@@ -15,8 +15,10 @@ const Tests = require("../tests.js");
 
 const errmsg = require("../err_msgs.js");
 
-const router = express.Router();
+// third-party integration (export of data)
+const FlashTabsParse = require("../flashtabschemaparser.js");
 
+const router = express.Router();
 router.use(auth_router.authenticated); // authenticated calls only
 
 // for api routes; allow only application/json Content-Type for request objects
@@ -342,6 +344,12 @@ router.post("/test/submitquestion", (req, res) => {
 		res.statusMessage = err.message;
 		res.status(400).json({"error": `Malformed input; ${err.message}`})
 	}
+})
+
+// EXPORT DATA INTO FlashTabs v3 schema
+// third party FlashTabs support
+router.get("/words/flashtabs/v3", (req, res) => {
+	res.json(FlashTabsParse(req.session.username));
 })
 
 module.exports = {

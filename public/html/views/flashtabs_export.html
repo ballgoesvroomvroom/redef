@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale = 1.0" />
+
+		<link rel="stylesheet" href="./../../css/includes/default.css">
+		<link rel="stylesheet" href="./../../css/views/flashtabs_export.css">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script type="module" src="./../../js/views/flashtabs_export.js"></script>
+		<script type="text/javascript" src="./../../js/includes/jszip.min.js"></script>
+
+		<title>redef.</title>
+	</head>
+	<body style="max-width: 100%; min-height: 100vh">
+		<div class="alertdialog-container-hidden" id="alertdialog-container" style="display: none;">
+			<button id="alertdialog-textcontainer">
+				<div class="hidden" id="alertdialog-close">
+					[ Close ]
+				</div>
+				<div id="alertdialog-text">
+					-
+				</div>
+			</button>
+		</div>
+		<div id="big-container">
+			<div id="actualboard">
+				<span id="actualboard-header">
+					Export to FlashTabs
+				</span>
+				<div class="linebreak-container">
+					<div>
+					</div>
+				</div>
+				<div id="board-contents">
+					<button class="board-selection-collapse" id="board-screen-newtest">
+						Topics ⌄
+					</button>
+					<div class="board-contents-frame" id="chapter-contents-frame">
+					</div>
+					<button class="board-menu-button" id="board-zipbutton">
+						[ Export all as .zip ]
+					</button>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

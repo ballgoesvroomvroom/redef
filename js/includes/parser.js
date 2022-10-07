@@ -131,7 +131,7 @@ class ChapterObject {
 			if (this.currentWord.keywords.length === 0) {
 				// parse wordobject contents to be used as whole keyword
 				// remove new lines, escape delimiters using a backslash so it doesn't get separated
-				this.addContentsAsKeywords();
+				// this.addContentsAsKeywords();
 			}
 		}
 		const wordObj = new WordObject(word, this.options);
@@ -279,10 +279,11 @@ function Parse(contents, options={enableRegexCapturing: false}) {
 		}
 
 		// check to see if last word has any keywords added
+		// UPDATE: EMPTY KEYWORDS (NO DEFINITION) ARE IGNORED
 		if (!parserObject.isEmpty() && !parserObject.currentChapter.isEmpty()) {
 			if (parserObject.currentChapter.currentWord.keywords.length === 0) {
 				// has chapter and word but last word does not have any keywords
-				parserObject.currentChapter.addContentsAsKeywords();
+				// parserObject.currentChapter.addContentsAsKeywords();
 			}
 		}
 
